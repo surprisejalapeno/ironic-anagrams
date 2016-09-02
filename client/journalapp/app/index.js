@@ -9,69 +9,29 @@ import {
   ListView,
   View
 } from 'react-native';
-// import React, { Component, View, Text, StyleSheet } from 'react-native';
+
 import Tabs from 'react-native-tabs';
-//import EntryList from "./EntryList"
+
+import EntriesTab from './EntriesTab'
+import FriendsTab from './FriendsTab'
+import SettingsTab from './SettingsTab'
+
 var EntryList = require('./EntryList')
 
 export default class Journalapp extends Component {
   constructor(props) {
     super(props);
-
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      page: 'first',
-      text: 'What did you do today?',
-      //entries:[]
-      entries: ds.cloneWithRows([
-        'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-      ])
+      page: 'EntriesTab',
     };
   }
 
-  // componentDidMount() {
-  //   this.getEntries();
-  // }
+renderTab() {
+  if (this.state.page === "EntriesTab") return <EntriesTab/>
+  if (this.state.page === "FriendsTab") return <FriendsTab/>
+  if (this.state.page === "SettingsTab") return <SettingsTab/>
+}
 
-  getEntries(){
-    console.log('does my get entires get called?')
-    fetch('http://zpdubmisbk.localtunnel.me/api/entries')
-      .then( (result) => {
-        console.log("get request", result);
-        this.setState({
-          entries:ds.cloneWithRows(result)
-        })
-      })
-      .catch((error) => {
-        console.warn("fetch error on getrequest:", error)
-      })
-  }
-
-  handleMessageSubmit() {
-    var message = {text:this.state.text};
-    console.log("Does this get ran?",this.state.text);
-
-    fetch('http://zpdubmisbk.localtunnel.me/api/entries', {
-       method: 'POST',
-       headers: {
-         //'Accept': 'application/json',
-         'Content-Type': 'application/json',
-       },
-       body: JSON.stringify(message)
-     })
-      .then((response) => {
-        console.log(response)
-        this.getEntries();
-      })
-       .catch((error) => console.warn("fetch error:", error))
-       .then((response) => {
-         console.log(response)
-         //return response.json()
-       }
-       )
-    //   .then(fetch('get request api endpoint'))
-
-  }
 
 
 render() {
@@ -80,29 +40,20 @@ render() {
    return (
 
        <View style={styles.container}>
-       <TextInput
-           style={styles.textinput}
-           value={this.state.text}
-           onChangeText={(text) => this.setState({text})}
-           onSubmitEditing= {this.handleMessageSubmit.bind(this)}
-        />
+       <Text>{page}</Text>
 
-        <EntryList
-          entries = {this.state.entries}
-        />
+       {this.renderTab()}
 
          <Tabs
            selected={page}
            style={styles.tabbar}
            selectedStyle={{color:'red'}} onSelect={el=>this.setState({page:el.props.name})}
          >
-             <Text name="first">First</Text>
-             <Text name="second">Second</Text>
-             <Text name="third">Third</Text>
+             <Text name="EntriesTab">Entries</Text>
+             <Text name="FriendsTab">Friends</Text>
+             <Text name="SettingsTab">Settings</Text>
          </Tabs>
 
-         <Text>CodeSharing App</Text>
-         <Text>{page}</Text>
        </View>
 
    )
