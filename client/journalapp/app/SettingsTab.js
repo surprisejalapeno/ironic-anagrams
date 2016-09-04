@@ -17,8 +17,6 @@ export default class SettingsTab extends Component {
   };
 
 
-
-
   render() {
 
      return (
