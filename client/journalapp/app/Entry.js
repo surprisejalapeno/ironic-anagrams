@@ -1,5 +1,20 @@
-// var Entry = ({data}) => (
-//Not quite sure how to abstract the individual entry view out of the EntryList
-// )
+import React, { Component } from 'react';
 
-// module.exports = Entry;
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  ListView,
+  View
+} from 'react-native';
+
+// VB: To utilize custom Entry component, read in the props from EntryList's instantiation, put them in the Text component
+var Entry = ( props ) => (
+  <Text>
+    {props.text}
+    {props.createdAt}
+  </Text>
+);
+
+module.exports = Entry;
+

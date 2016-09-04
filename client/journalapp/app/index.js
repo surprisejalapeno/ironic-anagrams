@@ -12,11 +12,12 @@ import {
 
 import Tabs from 'react-native-tabs';
 
-import EntriesTab from './EntriesTab'
-import FriendsTab from './FriendsTab'
-import SettingsTab from './SettingsTab'
+import EntriesTab from './EntriesTab';
+import FriendsTab from './FriendsTab';
+import SettingsTab from './SettingsTab';
 
-var EntryList = require('./EntryList')
+// Refactored require to use import, for consistency
+import EntryList from './EntryList';
 
 export default class Journalapp extends Component {
   constructor(props) {
