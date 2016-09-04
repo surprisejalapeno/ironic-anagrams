@@ -10,7 +10,8 @@ import {
   View
 } from 'react-native';
 
-var EntryList = require('./EntryList')
+// Refactored to use import instead of ES2015 require, for consistency 
+import EntryList from './EntryList';
 
 export default class EntriesTab extends Component {
   constructor(props) {
@@ -77,11 +78,8 @@ export default class EntriesTab extends Component {
              style={styles.textinput}
              value={this.state.text}
              onChangeText={(text) => this.setState({text})}
-             onSubmitEditing= {this.handleMessageSubmit.bind(this)}
-          />
-          <EntryList
-            entries = {this.state.entries}
-          />
+             onSubmitEditing= {this.handleMessageSubmit.bind(this)} />
+          <EntryList entries = {this.state.entries} />
         </View>
 
      )

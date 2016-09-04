@@ -7,19 +7,20 @@ import {
   View
 } from 'react-native';
 
-//var Entry = require('./Entry')
-
+// VB: Refactored require to use import, for consistency
+import Entry from './Entry';
 
 var EntryList = ({entries}) => (
     <ListView
        dataSource={entries}
        renderRow={ (rowData) =>
-          <Text>
-            {rowData.text}
-            {rowData.createdAt}
-          </Text>
-        }
-     />
+          <Entry text={ rowData.text } createdAt={ rowData.createdAt }/>
+          // VB: Changed to use the custom Entry component 
+          // <Text>
+          //   {rowData.text}
+          //   {rowData.createdAt}
+          // </Text>
+        }/>
 )
 
 
@@ -46,5 +47,4 @@ var EntryList = ({entries}) => (
 // }
 
 module.exports = EntryList;
-
 
