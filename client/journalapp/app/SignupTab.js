@@ -16,15 +16,36 @@ export default class SignupTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newUser: {}
+      username: '',
+      fullname: '',
+      password: ''
     };
+  }
+
+  submitUser() {
+    console.log('Username is: ', this.state.username);
+    // fetch('http://localhost:3000/api/users', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     this.state.newUser;
+    //   })
+    // });
+  }
+
+  _setState(prop, val) {
+    this.setState({
+      prop: val
+    });
   }
 
   render() {
 
     return (
       <View>
-        <SignupForm />
+        <SignupForm ref={'signupForm'} submitUser={ this.submitUser.bind(this) } setState={ this._setState.bind(this) }/>
       </View>
 
     );

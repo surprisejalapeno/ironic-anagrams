@@ -23,34 +23,26 @@ var SignupForm = ( props ) => {
   return (
     <View>
       <Form>
-        <Text> Enter your first name: </Text>
+        <Text> Enter your full name: </Text>
         <TextInput 
-          onChangeText= { (text) => this.setState({text}) }
-          value= {this.state.text}
+          onChangeText= { (text) => this.props.setState('fullname', {text}) }
+          value= { this.state.user.fullname }
           style= { inputStyle } 
-          name="firstname" 
-          type="TextInput"/> 
-
-        <Text> Enter your last name: </Text>
-        <TextInput 
-          onChangeText= { (text) => this.setState({text}) }
-          value= {this.state.text}
-          style= { inputStyle } 
-          name="lastname" 
+          name="fullname" 
           type="TextInput"/> 
 
         <Text> Enter a username: </Text>
         <TextInput 
-          onChangeText= { (text) => this.setState({text}) }
-          value= {this.state.text}
+          onChangeText= { (text) => this.setState('username',{text}) }
+          value= {this.state.user.username}
           style= { inputStyle } 
           name="username" 
           type="TextInput"/> 
 
         <Text> Enter a password: </Text>
         <TextInput 
-          onChangeText= { (text) => this.setState({text}) }
-          value= {this.state.text}
+          onChangeText= { (text) => this.setState('password', {text}) }
+          value= {this.state.user.password}
           style= { inputStyle } 
           name="password" 
           type="TextInput"/> 
