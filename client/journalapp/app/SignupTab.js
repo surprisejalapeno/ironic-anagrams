@@ -15,6 +15,9 @@ export default class SignupTab extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      newUser: {}
+    };
   }
 
   render() {
