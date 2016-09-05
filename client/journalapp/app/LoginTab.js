@@ -36,7 +36,7 @@ export default class LoginTab extends Component {
 
     console.warn("newUser is: ", newUser);
 
-    fetch('http://localhost:3000/api/users', {
+    fetch('http://localhost:3000/api/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,8 +55,8 @@ export default class LoginTab extends Component {
     this.setState(newProp);
   }
 
-  getState(){
-    this.state;
+  getState(){ 
+    return this.state;
   }
 
   render() {

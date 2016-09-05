@@ -35,7 +35,7 @@ export default class EntriesTab extends Component {
 
     getEntries(){
       console.log('does my get entires get called?')
-      fetch('http://zpdubmisbk.localtunnel.me/api/entries')
+      fetch('http://localhost:3000/api/entries')
         .then((result) => {
           console.log("get request", result);
           this.setState({
@@ -51,7 +51,7 @@ export default class EntriesTab extends Component {
       var message = {text:this.state.text};
       console.log("Does this get ran?",this.state.text);
 
-      fetch('http://zpdubmisbk.localtunnel.me/api/entries', {
+      fetch('http://localhost:3000/api/entries', {
          method: 'POST',
          headers: {
            //'Accept': 'application/json',
