@@ -12,6 +12,7 @@ import {
 
 import Tabs from 'react-native-tabs';
 
+import SignupTab from './SignupTab';
 import EntriesTab from './EntriesTab';
 import FriendsTab from './FriendsTab';
 import SettingsTab from './SettingsTab';
@@ -28,9 +29,10 @@ export default class Journalapp extends Component {
   }
 
 renderTab() {
-  if (this.state.page === "EntriesTab") return <EntriesTab/>
-  if (this.state.page === "FriendsTab") return <FriendsTab/>
-  if (this.state.page === "SettingsTab") return <SettingsTab/>
+  if (this.state.page === "EntriesTab") return <EntriesTab/>;
+  if (this.state.page === "FriendsTab") return <FriendsTab/>;
+  if (this.state.page === "SettingsTab") return <SettingsTab/>;
+  if (this.state.page === "SignupTab") return <SignupTab/>;
 }
 
 
@@ -53,6 +55,7 @@ render() {
              <Text name="EntriesTab">Entries</Text>
              <Text name="FriendsTab">Friends</Text>
              <Text name="SettingsTab">Settings</Text>
+             <Text name="SignupTab">Sign Up</Text>
          </Tabs>
 
        </View>
