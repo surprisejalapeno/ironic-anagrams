@@ -12,6 +12,7 @@ import {
 
 import Tabs from 'react-native-tabs';
 
+import LoginTab from './LoginTab';
 import SignupTab from './SignupTab';
 import EntriesTab from './EntriesTab';
 import FriendsTab from './FriendsTab';
@@ -33,6 +34,7 @@ renderTab() {
   if (this.state.page === "FriendsTab") return <FriendsTab/>;
   if (this.state.page === "SettingsTab") return <SettingsTab/>;
   if (this.state.page === "SignupTab") return <SignupTab/>;
+  if (this.state.page === "LoginTab") return <LoginTab/>;
 }
 
 
@@ -56,6 +58,7 @@ render() {
              <Text name="FriendsTab">Friends</Text>
              <Text name="SettingsTab">Settings</Text>
              <Text name="SignupTab">Sign Up</Text>
+             <Text name="LoginTab">Log In</Text>
          </Tabs>
 
        </View>

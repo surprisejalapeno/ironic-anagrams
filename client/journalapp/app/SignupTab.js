@@ -29,6 +29,8 @@ export default class SignupTab extends Component {
       password: this.state.password
     });
 
+    console.warn("newUser is: ", newUser);
+
     fetch('http://localhost:3000/api/users', {
       method: 'POST',
       headers: {
