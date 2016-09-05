@@ -25,24 +25,21 @@ var SignupForm = ( props ) => {
       <Form>
         <Text> Enter your full name: </Text>
         <TextInput 
-          onChangeText= { (text) => this.props.setState('fullname', {text}) }
-          value= { this.state.user.fullname }
+          onChangeText= { (text) => props.updateFullname({text}) }
           style= { inputStyle } 
           name="fullname" 
           type="TextInput"/> 
 
         <Text> Enter a username: </Text>
         <TextInput 
-          onChangeText= { (text) => this.setState('username',{text}) }
-          value= {this.state.user.username}
+          onChangeText= { (text) => props.updateUsername({text}) }
           style= { inputStyle } 
           name="username" 
           type="TextInput"/> 
 
         <Text> Enter a password: </Text>
         <TextInput 
-          onChangeText= { (text) => this.setState('password', {text}) }
-          value= {this.state.user.password}
+          onChangeText= { (text) => props.updatePassword({text}) }
           style= { inputStyle } 
           name="password" 
           type="TextInput"/> 

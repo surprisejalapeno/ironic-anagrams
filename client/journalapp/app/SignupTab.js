@@ -23,29 +23,50 @@ export default class SignupTab extends Component {
   }
 
   submitUser() {
-    console.log('Username is: ', this.state.username);
-    // fetch('http://localhost:3000/api/users', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     this.state.newUser;
-    //   })
-    // });
-  }
+    var newUser = JSON.stringify({
+      username: this.state.username,
+      fullname: this.state.fullname,
+      password: this.state.password
+    });
 
-  _setState(prop, val) {
-    this.setState({
-      prop: val
+    fetch('http://localhost:3000/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: newUser
     });
   }
 
+  updateFullname(val) {
+    var newProp = {'fullname': val.text};
+    this.setState(newProp);
+  }
+
+  updateUsername(val) {
+    var newProp = {'username': val.text};
+    this.setState(newProp);
+  }
+
+  updatePassword(val) {
+    var newProp = {'password': val.text};
+    this.setState(newProp);
+  }
+
+  getState(){
+    this.state;
+  }
   render() {
 
     return (
       <View>
-        <SignupForm ref={'signupForm'} submitUser={ this.submitUser.bind(this) } setState={ this._setState.bind(this) }/>
+        <SignupForm ref={'signupForm'} 
+          submitUser={ this.submitUser.bind(this) } 
+          updateFullname={ this.updateFullname.bind(this) }
+          updateUsername={ this.updateUsername.bind(this) }
+          updatePassword={ this.updatePassword.bind(this) }
+          getState={ this.getState.bind(this) }
+          />
       </View>
 
     );
