@@ -5,7 +5,8 @@ import {
   TextInput,
   View,
   AsyncStorage,
-  Navigator
+  Navigator,
+  ListView
 } from 'react-native';
 
 import EntryList from './EntryList';
@@ -14,21 +15,26 @@ export default class FriendScene extends Component {
   constructor(props) {
     super(props);
     this.props = props;
+
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      entries: [{text: 'sample entry'}]
+      entries: ds.cloneWithRows([])
     }
   };
 
   componentWillMount(){
     //this.getFriendPosts();
+    this.getFriendPosts()
   }
 
   getFriendPosts(){
+    console.log('FriendScene props.friendId', this.props.friendId);
+    var context = this;
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       fetch('http://localhost:3000/api/entries', {
         method: 'GET',
-        params: {
-          userId: 42
+        query: {
+          userId: context.props.friendId
         },
         headers: {
           'Content-Type': 'application/json',
@@ -37,8 +43,10 @@ export default class FriendScene extends Component {
       })    
       .then( resp => { resp.json()
         .then( json => {
+          console.log('Fetched friends posts', json);
+          const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
           this.setState({
-            entries: json
+            entries: ds.cloneWithRows(json)
           })
         })
         .catch((error) => {
@@ -54,6 +62,7 @@ export default class FriendScene extends Component {
       <View>
         <Text>FriendPage</Text>
         <Text>Friends EntryList</Text>
+        <EntryList entries={this.state.entries} />
         <Text onPress={ () => { this.props.navigator.pop() } }>Go Back</Text>
       </View>
     )

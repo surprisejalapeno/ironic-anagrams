@@ -14,7 +14,7 @@ var FriendList = (props) => {
 
     <View>
       { props.friendList.map( (friend) => {
-        return ( <Friend username={ friend.username } fullname={ friend.fullname } navigator={props.navigator}/> );
+        return ( <Friend username={ friend.username } fullname={ friend.fullname } id={ friend.id } navigator={props.navigator}/> );
       }) }
 
     </View>
