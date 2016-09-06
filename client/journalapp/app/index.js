@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {
+    AsyncStorage
+} from 'react-native';
+
 
 import AuthParent from './AuthParent';
 import Main from './Main';
@@ -11,6 +15,20 @@ export default class Journalapp extends Component {
     };
   }
 
+  componentWillMount(){
+    AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+      var message = {text:this.state.text};
+      this.updateStatus(true);
+    });
+  }
+
+  signOut(){
+    AsyncStorage.removeItem('@MySuperStore:token', (err) => {
+      if (err) {console.log('Error: ', err)}
+      this.updateStatus(false);
+    })
+  }
+
   updateStatus(status) {
     this.setState({
       loggedIn: status
@@ -19,7 +37,7 @@ export default class Journalapp extends Component {
 
   render() {
 
-    return this.state.loggedIn ? (<Main />) : (<AuthParent updateStatus={this.updateStatus.bind(this)}/>)
+    return this.state.loggedIn ? (<Main signOut={ this.signOut.bind(this) }/>) : (<AuthParent updateStatus={this.updateStatus.bind(this)}/>)
 
   }
 }
