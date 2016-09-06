@@ -49,6 +49,7 @@ export default class EntriesTab extends Component {
         })
           .then((result) => {
             console.log("~~~~~get request", result);
+            const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
             this.setState({
               entries:ds.cloneWithRows(result)
             })

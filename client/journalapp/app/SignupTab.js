@@ -39,11 +39,8 @@ export default class SignupTab extends Component {
     })
     .then( resp => { resp.json()
       .then( json => {
-        console.log(json.token, "this is our response token")
         try {
           AsyncStorage.setItem('@MySuperStore:token', json.token, (err) => { 
-            const value = AsyncStorage.getItem('@MySuperStore:key');
-            console.log(value,"this value gets printed");
             if ( err ){ console.warn(err); } 
           });
         } catch (error) {
