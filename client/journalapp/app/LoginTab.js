@@ -22,6 +22,7 @@ export default class LoginTab extends Component {
 
   constructor(props) {
     super(props);
+    this.props = props;
     this.state = {
       username: '',
       fullname: '',
@@ -46,7 +47,8 @@ export default class LoginTab extends Component {
       .then( json => {
         try {
           AsyncStorage.setItem('@MySuperStore:token', json.token, (err) => { 
-            if ( err ){ console.warn(err); } 
+            if ( err ){ console.warn(err); }
+            this.props.updateStatus(true);
           });
         } catch (error) {
           console.log('AsyncStorage error: ' + error.message);

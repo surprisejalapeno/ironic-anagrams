@@ -21,27 +21,20 @@ export default class EntriesTab extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       text: 'What did you do today?',
-      //entries:[]
-      entries: ds.cloneWithRows([{"id":1,"user_id":123,"text":"OMG OMG OMG... So much stuff happened today, OMG. OMG!","createdAt":"2016-09-01T21:59:59.834Z","updatedAt":"2016-09-01T21:59:59.834Z"},
-        {"id":2,"user_id":123,"text":"OMG OMG OMG... So much stuff happened today, OMG. OMG!","createdAt":"2016-09-01T22:10:57.683Z","updatedAt":"2016-09-01T22:10:57.683Z"},
-        {"id":3,"user_id":123,"text":"hello worls","createdAt":"2016-09-01T22:11:04.765Z","updatedAt":"2016-09-01T22:11:04.765Z"},
-        {"id":4,"user_id":123,"text":"hello world!!!","createdAt":"2016-09-01T22:16:38.743Z","updatedAt":"2016-09-01T22:16:38.743Z"},
-        {"id":5,"user_id":123,"text":"OMG OMG OMG... So much stuff happened today, OMG. OMG!","createdAt":"2016-09-01T22:17:31.103Z","updatedAt":"2016-09-01T22:17:31.103Z"}])
+      entries: ds.cloneWithRows([])
     };
   }
 
-    // componentWillMount() {
-    //   this.getEntries();
-    // }
+    componentDidMount() {
+      this.getEntries();
+    }
 
     getEntries(){
 
-      AsyncStorage.getItem('@MySuperStore:key', (err, token) => {
+      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
 
-        console.log("*** FIRING GET ENTRIES ");
         fetch('http://localhost:3000/api/entries', {
           method: 'GET',
-          // params: { 'userId': 30},
           headers: {
             'Content-Type': 'application/json',
             'x-access-token': token
@@ -49,8 +42,7 @@ export default class EntriesTab extends Component {
         })    
         .then( resp => { resp.json()
           .then( json => {
-            console.log("~~~~~***** get request", json);
-            ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+            const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
             this.setState({
               entries: ds.cloneWithRows(json)
             })
