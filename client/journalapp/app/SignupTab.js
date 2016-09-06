@@ -4,17 +4,28 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  TextInput,
   Text,
-  View
+  View,
+  Switch, 
+  Slider, 
+  Picker, 
+  PickerIOS,
+  AsyncStorage
 } from 'react-native';
 
-// Refactored to use import instead of ES2015 require, for consistency 
-import SignupForm from './SignupForm';
+import Form from 'react-native-form'
+import Button from 'react-native-button';
+
+var inputStyle = {
+  height: 20, borderColor: 'gray', borderWidth: .5
+};
 
 export default class SignupTab extends Component {
 
   constructor(props) {
     super(props);
+    this.props = props;
     this.state = {
       username: '',
       fullname: '',
@@ -22,22 +33,33 @@ export default class SignupTab extends Component {
     };
   }
 
-  submitUser() {
+  submitUser() {  
     var newUser = JSON.stringify({
       username: this.state.username,
       fullname: this.state.fullname,
       password: this.state.password
     });
 
-    console.warn("newUser is: ", newUser);
-
-    fetch('http://localhost:3000/api/users', {
+    fetch('http://localhost:3000/api/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: newUser
+    })
+    .then( resp => { resp.json()
+      .then( json => {
+        try {
+          AsyncStorage.setItem('@MySuperStore:token', json.token, (err) => { 
+            if ( err ){ console.warn(err); } 
+            this.props.updateStatus(true);
+          });
+        } catch (error) {
+          console.log('AsyncStorage error: ' + error.message);
+        }
+      });
     });
+
   }
 
   updateFullname(val) {
@@ -55,21 +77,41 @@ export default class SignupTab extends Component {
     this.setState(newProp);
   }
 
-  getState(){
-    this.state;
-  }
   render() {
 
     return (
       <View>
-        <SignupForm ref={'signupForm'} 
-          submitUser={ this.submitUser.bind(this) } 
-          updateFullname={ this.updateFullname.bind(this) }
-          updateUsername={ this.updateUsername.bind(this) }
-          updatePassword={ this.updatePassword.bind(this) }
-          getState={ this.getState.bind(this) }
-          />
+        <Form ref={'signupForm'}>
+          <Text> Enter your full name: </Text>
+          <TextInput 
+            onChangeText= { (text) => this.updateFullname({text}) }
+            style= { inputStyle } 
+            name="fullname" 
+            type="TextInput"/> 
+
+          <Text> Enter a username: </Text>
+          <TextInput 
+            onChangeText= { (text) => this.updateUsername({text}) }
+            style= { inputStyle } 
+            name="username" 
+            type="TextInput"/> 
+
+          <Text> Enter a password: </Text>
+          <TextInput 
+            onChangeText= { (text) => this.updatePassword({text}) }
+            style= { inputStyle } 
+            name="password" 
+            type="TextInput"/> 
+
+        </Form>
+        <Button
+          style={{fontSize: 20, color: 'green'}}
+          styleDisabled={{color: 'red'}}
+          onPress={ () => this.submitUser() }>
+          Submit
+        </Button>
       </View>
+
 
     );
   }

@@ -7,7 +7,8 @@ import {
   Text,
   TextInput,
   ListView,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 
 // Refactored to use import instead of ES2015 require, for consistency 
@@ -20,52 +21,63 @@ export default class EntriesTab extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       text: 'What did you do today?',
-      //entries:[]
-      entries: ds.cloneWithRows([{"id":1,"user_id":123,"text":"OMG OMG OMG... So much stuff happened today, OMG. OMG!","createdAt":"2016-09-01T21:59:59.834Z","updatedAt":"2016-09-01T21:59:59.834Z"},
-        {"id":2,"user_id":123,"text":"OMG OMG OMG... So much stuff happened today, OMG. OMG!","createdAt":"2016-09-01T22:10:57.683Z","updatedAt":"2016-09-01T22:10:57.683Z"},
-        {"id":3,"user_id":123,"text":"hello worls","createdAt":"2016-09-01T22:11:04.765Z","updatedAt":"2016-09-01T22:11:04.765Z"},
-        {"id":4,"user_id":123,"text":"hello world!!!","createdAt":"2016-09-01T22:16:38.743Z","updatedAt":"2016-09-01T22:16:38.743Z"},
-        {"id":5,"user_id":123,"text":"OMG OMG OMG... So much stuff happened today, OMG. OMG!","createdAt":"2016-09-01T22:17:31.103Z","updatedAt":"2016-09-01T22:17:31.103Z"}])
+      entries: ds.cloneWithRows([])
     };
   }
 
-    // componentWillMount() {
-    //   this.getEntries();
-    // }
+    componentDidMount() {
+      this.getEntries();
+    }
 
     getEntries(){
-      console.log('does my get entires get called?')
-      fetch('http://zpdubmisbk.localtunnel.me/api/entries')
-        .then((result) => {
-          console.log("get request", result);
-          this.setState({
-            entries:ds.cloneWithRows(result)
+
+      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+
+        fetch('http://localhost:3000/api/entries', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token
+          }
+        })    
+        .then( resp => { resp.json()
+          .then( json => {
+            const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+            this.setState({
+              entries: ds.cloneWithRows(json)
+            })
           })
-        })
-        .catch((error) => {
-          console.warn("fetch error on getrequest:", error)
-        })
+          .catch((error) => {
+            console.warn("fetch error on getrequest:", error)
+          });
+        });
+      });
+    
     }
 
     handleMessageSubmit() {
-      var message = {text:this.state.text};
-      console.log("Does this get ran?",this.state.text);
 
-      fetch('http://zpdubmisbk.localtunnel.me/api/entries', {
-         method: 'POST',
-         headers: {
-           //'Accept': 'application/json',
+      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+        var message = {text:this.state.text};
+
+        fetch('http://localhost:3000/api/entries', {
+          method: 'POST',
+          headers: {
+             //'Accept': 'application/json',
            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify(message)
-       })
-        .then((response) => {
-          console.log(response)
-          this.getEntries();
+           'x-access-token': token
+          },
+          body: JSON.stringify(message)
         })
-         .catch((error) => {
-          console.warn("fetch error:", error)
-        })
+          .then((response) => {
+            console.log(response)
+            this.getEntries();
+          })
+            .catch((error) => {
+              console.warn("fetch error:", error)
+            });
+      });
+
     }
 
 
