@@ -4,13 +4,15 @@ import {
   Text,
   TextInput,
   ListView,
-  View
+  View,
+  Navigator
 } from 'react-native';
 
 import Tabs from 'react-native-tabs';
 import EntriesTab from './EntriesTab';
 import FriendsTab from './FriendsTab';
 import SettingsTab from './SettingsTab';
+import FriendScene from './FriendScene';
 
 export default class Main extends Component {
   constructor(props) {
@@ -21,30 +23,44 @@ export default class Main extends Component {
     };
   }
 
-  renderTab() {
+  renderTab(navigator) {
     if (this.state.page === "EntriesTab") return <EntriesTab />;
-    if (this.state.page === "FriendsTab") return <FriendsTab />;
+    if (this.state.page === "FriendsTab") return <FriendsTab navigator={navigator}/>;
     if (this.state.page === "SettingsTab") return <SettingsTab signOut={ this.props.signOut }/>;
   }
 
-  render() {
+  navigatorRenderScene(route, navigator) { 
     const { page } = this.state;
+    if (route.title === 'Main') {
+      return (
+        <View style={styles.container}>
+          <Text>{page}</Text>
 
+          {this.renderTab(navigator)}
+
+          <Tabs
+            selected={page}
+            style={styles.tabbar}
+            selectedStyle={{color:'red'}} onSelect={el=>this.setState({page:el.props.name})}>
+              <Text name="EntriesTab">Entries</Text>
+              <Text name="FriendsTab">Friends</Text>
+              <Text name="SettingsTab">Settings</Text>
+          </Tabs>
+        </View>
+      )
+    } else if (route.title === 'FriendPage') {
+      return (
+        <FriendScene navigator={navigator} />
+      )
+    }
+  }
+
+  render() {
     return (
-      <View style={styles.container}>
-        <Text>{page}</Text>
-
-        {this.renderTab()}
-
-        <Tabs
-          selected={page}
-          style={styles.tabbar}
-          selectedStyle={{color:'red'}} onSelect={el=>this.setState({page:el.props.name})}>
-            <Text name="EntriesTab">Entries</Text>
-            <Text name="FriendsTab">Friends</Text>
-            <Text name="SettingsTab">Settings</Text>
-        </Tabs>
-      </View>
+      <Navigator 
+        initialRoute={ { title: 'Main' } }
+        renderScene={ this.navigatorRenderScene.bind(this) }
+      />
     )
   }
 }
