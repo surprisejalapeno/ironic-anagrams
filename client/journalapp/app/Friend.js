@@ -11,8 +11,8 @@ var Friend = (props) => {
 
   return (
     <View>
-      <Text>Fullname: { props.fullname } Username: { props.username }</Text>
-      <Text onPress={()=>{ props.navigator.push({title: 'FriendPage' }) }}>Show Entries</Text>
+      <Text>Id: {props.id} Fullname: { props.fullname } Username: { props.username }</Text>
+      <Text onPress={()=>{ props.navigator.push({title: 'FriendPage', friendId: props.id }) }}>Show Entries</Text>
     </View>
 
   )

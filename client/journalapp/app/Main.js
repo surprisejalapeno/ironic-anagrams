@@ -50,7 +50,7 @@ export default class Main extends Component {
       )
     } else if (route.title === 'FriendPage') {
       return (
-        <FriendScene navigator={navigator} />
+        <FriendScene friendId={ route.friendId } navigator={navigator} />
       )
     }
   }
