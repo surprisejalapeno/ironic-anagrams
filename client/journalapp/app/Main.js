@@ -23,7 +23,7 @@ export default class Main extends Component {
 
   renderTab() {
     if (this.state.page === "EntriesTab") return <EntriesTab />;
-    if (this.state.page === "FriendsTab") return <FriendsTab/>;
+    if (this.state.page === "FriendsTab") return <FriendsTab />;
     if (this.state.page === "SettingsTab") return <SettingsTab signOut={ this.props.signOut }/>;
   }
 
