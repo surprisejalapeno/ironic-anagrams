@@ -9,19 +9,19 @@ import {
   View
 } from 'react-native';
 
-
+import Button from 'react-native-button';
 
 export default class SettingsTab extends Component {
   constructor(props) {
     super(props);
+    this.props = props;
   };
-
 
   render() {
 
      return (
         <View>
-        <Text>Testing</Text>
+        <Button onPress= { () => this.props.signOut() }>Sign Out</Button>
         </View>
 
      )
