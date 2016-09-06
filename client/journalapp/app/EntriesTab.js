@@ -7,7 +7,8 @@ import {
   Text,
   TextInput,
   ListView,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 
 // Refactored to use import instead of ES2015 require, for consistency 
@@ -48,6 +49,11 @@ export default class EntriesTab extends Component {
     }
 
     handleMessageSubmit() {
+
+      AsyncStorage.getItem('@MySuperStore:key', (err, value) => {
+        console.log("THE TOKEN IS: ", err, "or val", value);
+      });
+
       var message = {text:this.state.text};
       console.log("Does this get ran?",this.state.text);
 

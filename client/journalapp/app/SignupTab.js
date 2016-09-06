@@ -23,8 +23,7 @@ export default class SignupTab extends Component {
     };
   }
 
-  submitUser() {
-
+  submitUser() {  
     var newUser = JSON.stringify({
       username: this.state.username,
       fullname: this.state.fullname,
@@ -38,17 +37,19 @@ export default class SignupTab extends Component {
       },
       body: newUser
     })
-    .then((resp) => {
-      console.warn("TOKEN: ", resp.token);
-      try {
-        await AsyncStorage.setItem('@MySuperStore:token', resp.token, ((err) => { 
-          const value = await AsyncStorage.getItem('@MySuperStore:token');
-          console.log(value);
-          if ( err ){ console.warn(err); } 
-        }) );
-      } catch (error) {
-        console.log('AsyncStorage error: ' + error.message);
-      }
+    .then( resp => { resp.json()
+      .then( json => {
+        console.log(json.token, "this is our response token")
+        try {
+          AsyncStorage.setItem('@MySuperStore:token', json.token, (err) => { 
+            const value = AsyncStorage.getItem('@MySuperStore:key');
+            console.log(value,"this value gets printed");
+            if ( err ){ console.warn(err); } 
+          });
+        } catch (error) {
+          console.log('AsyncStorage error: ' + error.message);
+        }
+      });
     });
 
   }
