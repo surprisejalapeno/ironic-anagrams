@@ -41,28 +41,31 @@ export default class EntriesTab extends Component {
         console.log("*** FIRING GET ENTRIES ");
         fetch('http://localhost:3000/api/entries', {
           method: 'GET',
-          params: { 'userId': 30},
+          // params: { 'userId': 30},
           headers: {
             'Content-Type': 'application/json',
             'x-access-token': token
           }
-        })
-          .then((result) => {
-            console.log("~~~~~get request", result);
-            const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        })    
+        .then( resp => { resp.json()
+          .then( json => {
+            console.log("~~~~~***** get request", json);
+            ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
             this.setState({
-              entries:ds.cloneWithRows(result)
+              entries: ds.cloneWithRows(json)
             })
           })
           .catch((error) => {
             console.warn("fetch error on getrequest:", error)
-          })
+          });
+        });
       });
+    
     }
 
     handleMessageSubmit() {
 
-      AsyncStorage.getItem('@MySuperStore:key', (err, token) => {
+      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
         var message = {text:this.state.text};
 
         fetch('http://localhost:3000/api/entries', {
