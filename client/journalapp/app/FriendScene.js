@@ -1,5 +1,3 @@
-// app/index.js
-
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -10,27 +8,28 @@ import {
   Navigator
 } from 'react-native';
 
-import FriendList from './FriendList';
 import EntryList from './EntryList';
 
-export default class FriendsTab extends Component {
+export default class FriendScene extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-
     this.state = {
-      friendList: [{username:"test", fullname:"test"}]
-    };
+      entries: [{text: 'sample entry'}]
+    }
   };
 
   componentWillMount(){
-    this.getFriends();
+    //this.getFriendPosts();
   }
 
-  getFriends(){
+  getFriendPosts(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-      fetch('http://localhost:3000/api/friends', {
+      fetch('http://localhost:3000/api/entries', {
         method: 'GET',
+        params: {
+          userId: 42
+        },
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': token
@@ -39,7 +38,7 @@ export default class FriendsTab extends Component {
       .then( resp => { resp.json()
         .then( json => {
           this.setState({
-            friendList: json
+            entries: json
           })
         })
         .catch((error) => {
@@ -49,10 +48,14 @@ export default class FriendsTab extends Component {
     });
   }
 
+        // <EntryList entries={this.state.entries} />
   render() {
     return (
-      <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} />
+      <View>
+        <Text>FriendPage</Text>
+        <Text>Friends EntryList</Text>
+        <Text onPress={ () => { this.props.navigator.pop() } }>Go Back</Text>
+      </View>
     )
   }
 }
-
