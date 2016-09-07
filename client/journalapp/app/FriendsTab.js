@@ -63,6 +63,7 @@ export default class FriendsTab extends Component {
       })
       .then( resp => { resp.json()
         .then( json => {
+          console.log(json, "myjson");
           this.setState({
             pendingRequests: json
           })
@@ -74,11 +75,35 @@ export default class FriendsTab extends Component {
     });
   }
 
+  acceptFriendRequest(requestId){
+    console.log(requestId, typeof requestId, 'accepted!')
+    AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+      var message = {requestId:requestId};
+      fetch('http://localhost:3000/api/friendreq', {
+        method: 'POST',
+        headers: {
+         'Content-Type': 'application/json',
+         'x-access-token': token
+        },
+        body: JSON.stringify(message)
+      })
+        .then((response) => {
+          this.getFriendRequests();
+          console.log(response)
+        })
+          .catch((error) => {
+            console.warn("fetch error:", error)
+          });
+    });
+  }
+
+
+
 
   render() {
     return (
       <View>
-      <RequestList requestList={ this.state.pendingRequests } navigator={this.props.navigator} />
+      <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
       <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} />
       </View>
     )

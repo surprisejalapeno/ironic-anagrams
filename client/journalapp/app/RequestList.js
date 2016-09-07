@@ -17,7 +17,7 @@ var RequestList = (props) => {
       <View>
       <Text>Pending Friend Requests</Text>
         { props.requestList.map( (request) => {
-          return ( <Request username={ request.username } fullname={ friend.fullname } id={ friend.id } navigator={props.navigator}/> );
+          return ( <Request fullname={ request.user.fullname } requestId={request.id} acceptFriend={props.acceptFriend} navigator={props.navigator}/> );
         }) }
 
       </View>
