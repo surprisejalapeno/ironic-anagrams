@@ -34,8 +34,6 @@ export default class FriendScene extends Component {
     this.props = props;
   };
 
-  // value={this.state.text}
-
   render() {
     return (
       <View style={ styles.container }>
