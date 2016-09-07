@@ -14,6 +14,7 @@ import {
 
 import Button from 'react-native-button';
 // Refactored to use import instead of ES2015 require, for consistency 
+
 import EntryList from './EntryList';
 
 const styles = StyleSheet.create({
@@ -28,6 +29,9 @@ const styles = StyleSheet.create({
     paddingTop: 70
   }
 });
+
+
+
 
 
 
