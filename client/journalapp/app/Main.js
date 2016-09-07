@@ -8,6 +8,7 @@ import {
   Navigator, 
   AsyncStorage, 
   Dimensions
+  Image
 } from 'react-native';
 
 import Tabs from 'react-native-tabs';
@@ -70,7 +71,7 @@ export default class Main extends Component {
           'Content-Type': 'application/json',
           'x-access-token': token
         }
-      })    
+      })
       .then( resp => { resp.json()
         .then( json => {
           const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -112,7 +113,6 @@ export default class Main extends Component {
             console.warn("fetch error:", error)
           });
     });
-
   }
 
 
@@ -134,10 +134,23 @@ export default class Main extends Component {
           <Tabs
             selected={page}
             style={styles.tabbar}
-            selectedStyle={{color:'red'}} onSelect={el=>this.setState({page:el.props.name})}>
-              <Text name="EntriesTab">Entries</Text>
-              <Text name="FriendsTab">Friends</Text>
-              <Text name="SettingsTab">Settings</Text>
+            selectedStyle={{color:'#333333'}} onSelect={el=>this.setState({page:el.props.name})}>
+
+            <View name="EntriesTab">
+              <Image style={styles.tabbarimage} source={require('./images/Home_Active.png')}/>
+              <Text style={styles.tabbartext}> Entries</Text>
+            </View>
+
+            <View name="FriendsTab">
+              <Image style={styles.tabbarimage} source={require('./images/Friends_Active.png')}/>
+              <Text style={styles.tabbartext}>Friends</Text>
+            </View>
+
+            <View name="SettingsTab">
+              <Image style={styles.tabbarimage} source={require('./images/Settings_Active.png')}/>
+              <Text style={styles.tabbartext}>Settings</Text>
+            </View>
+
           </Tabs>
         </View>
       )
@@ -209,4 +222,37 @@ export default class Main extends Component {
     )
   }
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tabbar: {
+    backgroundColor:'white',
+    height: 49,
+    borderTopColor: 'gray',
+    borderTopWidth: 0.5
+  },
+  textinput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1
+  },
+  tabbarimage: {
+    height: 35,
+    width:35,
+    marginTop:6.5,
+    alignSelf:'center'
+  },
+  tabbartext: {
+   fontSize:10,
+   fontWeight:'700',
+   marginBottom:6.5,
+   color:"#878787"
+
+  }
+});
 

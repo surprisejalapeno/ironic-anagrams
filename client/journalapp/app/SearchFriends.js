@@ -105,10 +105,5 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1
   },
-  textinput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
 
-  }
 });

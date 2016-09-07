@@ -102,11 +102,22 @@ export default class FriendsTab extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.background}>
       <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
       <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} />
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  background: {
+    //flex: 1,
+    //height: 40,
+    backgroundColor: '#f5f6f6',
+    alignItems: 'center'
+  },
+});
+
+
 
