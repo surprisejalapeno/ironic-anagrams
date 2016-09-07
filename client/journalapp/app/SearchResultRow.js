@@ -10,10 +10,11 @@ import {
 var SearchResultRow = (props) => {
 
   return (
-    <View>
-      <Text onPress={props.sendreq(props.id)}>
-      { props.fullname }     |
-      { props.username }
+    <View style={styles.rowContainer}>
+      <Text
+      onPress={props.sendreq(props.id)}
+      style={styles.rowText} >
+      { props.fullname }
       </Text>
     </View>
 
@@ -22,3 +23,18 @@ var SearchResultRow = (props) => {
 
 
 module.exports = SearchResultRow;
+
+const styles = StyleSheet.create({
+  rowContainer: {
+    flex: 1,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  rowText: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    fontSize: 14,
+    alignItems: 'flex-start'
+  }
+});
