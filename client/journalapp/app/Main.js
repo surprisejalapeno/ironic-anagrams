@@ -84,7 +84,8 @@ export default class Main extends Component {
       )
     } else if (route.title === 'MessageScene') {
       return (
-        <MessageScene navigator={navigator} />
+        <MessageScene navigator={navigator} getEntries={ this.getEntries.bind(this) }/> 
+      )
     } else if (route.title === 'SearchFriends') {
       return (
         <SearchFriends navigator={ navigator } />
