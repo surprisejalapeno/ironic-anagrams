@@ -5,7 +5,8 @@ import {
   TextInput,
   ListView,
   View,
-  Navigator
+  Navigator, 
+  AsyncStorage
 } from 'react-native';
 
 import Tabs from 'react-native-tabs';
@@ -19,13 +20,40 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
     this.props = props;
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
     this.state = {
       page: 'EntriesTab',
+      entries: ds.cloneWithRows([])
     };
   }
 
+  getEntries(){
+    AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+      fetch('http://localhost:3000/api/entries', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token
+        }
+      })    
+      .then( resp => { resp.json()
+        .then( json => {
+          const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+          this.setState({
+            entries: ds.cloneWithRows(json)
+          })
+        })
+        .catch((error) => {
+          console.warn("fetch error on getrequest:", error)
+        });
+      });
+    });
+  
+  }
+
   renderTab(navigator) {
-    if (this.state.page === "EntriesTab") return <EntriesTab navigator={navigator} />;
+    if (this.state.page === "EntriesTab") return <EntriesTab navigator={navigator} getEntries={ this.getEntries.bind(this) } entries={ this.state.entries }/>;
     if (this.state.page === "FriendsTab") return <FriendsTab navigator={navigator} />;
     if (this.state.page === "SettingsTab") return <SettingsTab signOut={ this.props.signOut }/>;
   }

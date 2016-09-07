@@ -52,7 +52,8 @@ export default class FriendScene extends Component {
       })
         .then((response) => {
           console.log(response)
-          this.getEntries();
+          //this.getEntries();
+          this.props.navigator.push({title: 'Main'});
         })
           .catch((error) => {
             console.warn("fetch error:", error)

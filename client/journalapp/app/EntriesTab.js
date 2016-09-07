@@ -29,81 +29,26 @@ const styles = StyleSheet.create({
   }
 });
 
+
+
 export default class EntriesTab extends Component {
   constructor(props) {
     super(props);
 
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      text: 'What did you do today?',
-      entries: ds.cloneWithRows([])
-    };
+    this.props = props;
   }
 
-    componentDidMount() {
-      this.getEntries();
-    }
-
-    getEntries(){
-
-      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-
-        fetch('http://localhost:3000/api/entries', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': token
-          }
-        })    
-        .then( resp => { resp.json()
-          .then( json => {
-            const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-            this.setState({
-              entries: ds.cloneWithRows(json)
-            })
-          })
-          .catch((error) => {
-            console.warn("fetch error on getrequest:", error)
-          });
-        });
-      });
-    
-    }
-
-    // handleMessageSubmit() {
-
-    //   AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-    //     var message = {text:this.state.text};
-
-    //     fetch('http://localhost:3000/api/entries', {
-    //       method: 'POST',
-    //       headers: {
-    //          //'Accept': 'application/json',
-    //        'Content-Type': 'application/json',
-    //        'x-access-token': token
-    //       },
-    //       body: JSON.stringify(message)
-    //     })
-    //       .then((response) => {
-    //         console.log(response)
-    //         this.getEntries();
-    //       })
-    //         .catch((error) => {
-    //           console.warn("fetch error:", error)
-    //         });
-    //   });
-
-    // }
-
+  componentDidMount() {
+    this.props.getEntries();
+  }
 
   render() {
-   const { page } = this.state;
 
-     return (
-        <View style={ styles.container }>
-          <Button onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) } > What did you do today? </Button>
-          <EntryList entries = {this.state.entries} />
-        </View>
+    return (
+      <View style={ styles.container }>
+        <Button onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) } > What did you do today? </Button>
+        <EntryList entries = { this.props.entries } />
+      </View>
 
      )
    }
