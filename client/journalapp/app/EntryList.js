@@ -11,7 +11,7 @@ import {
 import Entry from './Entry';
 
 var EntryList = ({entries}) => (
-    <ListView
+    <ListView 
        dataSource={entries}
        renderRow={ (rowData) =>
           <Entry text={ rowData.text } createdAt={ rowData.createdAt }/>
