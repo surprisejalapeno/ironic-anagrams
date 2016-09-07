@@ -13,6 +13,7 @@ import EntriesTab from './EntriesTab';
 import FriendsTab from './FriendsTab';
 import SettingsTab from './SettingsTab';
 import FriendScene from './FriendScene';
+import SearchFriends from './SearchFriends';
 
 export default class Main extends Component {
   constructor(props) {
@@ -52,6 +53,10 @@ export default class Main extends Component {
       return (
         <FriendScene friendId={ route.friendId } navigator={navigator} />
       )
+    } else if (route.title === 'SearchFriends') {
+      return (
+        <SearchFriends navigator={ navigator } />
+      )
     }
   }
 
@@ -67,10 +72,14 @@ export default class Main extends Component {
                    LeftButton(route, navigator, index, navState) {
                      // some component or null
                    },
-                   RightButton(route, navigator, index, navState) {
-                      // if ( this.state.page === "FriendsTab"){
-                      //   return (<Text>Add Friends</Text>)
-                      // }
+                   RightButton: (route, navigator, index, navState) => {
+                      if ( this.state.page === "FriendsTab"){
+                        return (
+                          <Text onPress={()=>{ navigator.push({title: 'SearchFriends'}) }} >
+                          Add Friends
+                          </Text>
+                          )
+                      }
                    },
                    Title: (route, navigator, index, navState) =>
                      { return (<Text>{this.state.page}</Text>); }

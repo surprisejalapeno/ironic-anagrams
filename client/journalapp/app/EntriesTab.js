@@ -11,7 +11,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-// Refactored to use import instead of ES2015 require, for consistency 
+// Refactored to use import instead of ES2015 require, for consistency
 import EntryList from './EntryList';
 
 export default class EntriesTab extends Component {
@@ -39,7 +39,7 @@ export default class EntriesTab extends Component {
             'Content-Type': 'application/json',
             'x-access-token': token
           }
-        })    
+        })
         .then( resp => { resp.json()
           .then( json => {
             const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -52,7 +52,7 @@ export default class EntriesTab extends Component {
           });
         });
       });
-    
+
     }
 
     handleMessageSubmit() {
