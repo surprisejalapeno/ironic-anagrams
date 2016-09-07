@@ -13,6 +13,7 @@ import EntriesTab from './EntriesTab';
 import FriendsTab from './FriendsTab';
 import SettingsTab from './SettingsTab';
 import FriendScene from './FriendScene';
+import MessageScene from './MessageScene';
 
 export default class Main extends Component {
   constructor(props) {
@@ -24,8 +25,8 @@ export default class Main extends Component {
   }
 
   renderTab(navigator) {
-    if (this.state.page === "EntriesTab") return <EntriesTab />;
-    if (this.state.page === "FriendsTab") return <FriendsTab navigator={navigator}/>;
+    if (this.state.page === "EntriesTab") return <EntriesTab navigator={navigator} />;
+    if (this.state.page === "FriendsTab") return <FriendsTab navigator={navigator} />;
     if (this.state.page === "SettingsTab") return <SettingsTab signOut={ this.props.signOut }/>;
   }
 
@@ -51,6 +52,10 @@ export default class Main extends Component {
     } else if (route.title === 'FriendPage') {
       return (
         <FriendScene friendId={ route.friendId } navigator={navigator} />
+      )
+    } else if (route.title === 'MessageScene') {
+      return (
+        <MessageScene navigator={navigator} />
       )
     }
   }
