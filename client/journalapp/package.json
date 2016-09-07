@@ -6,6 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "dateformat": "^1.0.12",
     "react": "15.3.1",
     "react-native": "0.32.0",
     "react-native-button": "^1.7.0",
