@@ -76,9 +76,9 @@ export default class FriendsTab extends Component {
   }
 
   acceptFriendRequest(requestId){
-    console.log(requesId, typeof requestId, 'accepted!')
+    console.log(requestId, typeof requestId, 'accepted!')
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-      var message = {requestId:requestId;
+      var message = {requestId:requestId};
       fetch('http://localhost:3000/api/friendreq', {
         method: 'POST',
         headers: {
@@ -88,6 +88,7 @@ export default class FriendsTab extends Component {
         body: JSON.stringify(message)
       })
         .then((response) => {
+          this.getFriendRequests();
           console.log(response)
         })
           .catch((error) => {
