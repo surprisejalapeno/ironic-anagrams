@@ -51,7 +51,6 @@ export default class FriendScene extends Component {
     });
   }
 
-        // <EntryList entries={this.state.entries} />
   render() {
     return (
       <View>
