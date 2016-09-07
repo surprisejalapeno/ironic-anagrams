@@ -7,7 +7,7 @@ import {
   View,
   Navigator, 
   AsyncStorage, 
-  Dimensions
+  Dimensions,
   Image
 } from 'react-native';
 
@@ -26,17 +26,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  tabbar: {
-    backgroundColor:'white',
-    height: 64,
-    borderTopColor: 'red',
-    borderTopWidth: 2
-  },
   textinput: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1
-
   }, 
   topBar: {
     width: Dimensions.get('window').width,
@@ -46,9 +39,32 @@ const styles = StyleSheet.create({
   }, 
   topBarView: {
     margin: 3, 
+  },
+  tabbar: {
+    backgroundColor:'white',
+    height: 49,
+    borderTopColor: 'gray',
+    borderTopWidth: 0.5
+  },
+  textinput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1
+  },
+  tabbarimage: {
+    height: 35,
+    width:35,
+    marginTop:6.5,
+    alignSelf:'center'
+  },
+  tabbartext: {
+   fontSize:10,
+   fontWeight:'700',
+   marginBottom:6.5,
+   color:"#878787"
+
   }
 });
-
 
 export default class Main extends Component {
   constructor(props) {
@@ -224,35 +240,4 @@ export default class Main extends Component {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  tabbar: {
-    backgroundColor:'white',
-    height: 49,
-    borderTopColor: 'gray',
-    borderTopWidth: 0.5
-  },
-  textinput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
-  },
-  tabbarimage: {
-    height: 35,
-    width:35,
-    marginTop:6.5,
-    alignSelf:'center'
-  },
-  tabbartext: {
-   fontSize:10,
-   fontWeight:'700',
-   marginBottom:6.5,
-   color:"#878787"
-
-  }
-});
 
