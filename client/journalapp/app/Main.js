@@ -50,7 +50,6 @@ export default class Main extends Component {
         });
       });
     });
-  
   }
 
   renderTab(navigator) {
@@ -101,17 +100,23 @@ export default class Main extends Component {
         renderScene={ this.navigatorRenderScene.bind(this) }
         navigationBar = {
           <Navigator.NavigationBar
-                 routeMapper={{
-                   LeftButton(route, navigator, index, navState) {
-                     // some component or null
-                   },
+                routeMapper={{
+                  LeftButton(route, navigator, index, navState) {
+                    if (route.title === 'SearchFriends'){
+                      return (
+                        <Text onPress={()=>{ navigator.pop() }} >
+                          Go Back
+                        </Text>
+                      )
+                    }
+                  },
                    RightButton: (route, navigator, index, navState) => {
-                      if ( this.state.page === "FriendsTab"){
+                      if ( this.state.page === "FriendsTab" && route.title !== 'SearchFriends'){
                         return (
                           <Text onPress={()=>{ navigator.push({title: 'SearchFriends'}) }} >
-                          Add Friends
+                            Add Friends
                           </Text>
-                          )
+                        )
                       }
                    },
                    Title: (route, navigator, index, navState) =>
