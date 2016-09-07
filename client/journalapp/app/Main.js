@@ -6,7 +6,8 @@ import {
   ListView,
   View,
   Navigator, 
-  AsyncStorage
+  AsyncStorage, 
+  Dimensions
 } from 'react-native';
 
 import Tabs from 'react-native-tabs';
@@ -17,6 +18,37 @@ import FriendScene from './FriendScene';
 import MessageScene from './MessageScene';
 import SearchFriends from './SearchFriends';
 
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tabbar: {
+    backgroundColor:'white',
+    height: 64,
+    borderTopColor: 'red',
+    borderTopWidth: 2
+  },
+  textinput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1
+
+  }, 
+  topBar: {
+    width: Dimensions.get('window').width,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(100,100,100,.6)',
+  }, 
+  topBarView: {
+    margin: 3, 
+  }
+});
+
+
 export default class Main extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +57,8 @@ export default class Main extends Component {
 
     this.state = {
       page: 'EntriesTab',
-      entries: ds.cloneWithRows([])
+      entries: ds.cloneWithRows([]), 
+      newEntry: ''
     };
   }
 
@@ -51,6 +84,37 @@ export default class Main extends Component {
       });
     });
   }
+
+  updateEntry(text){
+    this.setState({
+      newEntry: text
+    });
+  }
+
+  postEntry(navigator){
+    AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+      var message = {text: this.state.newEntry};
+
+      fetch('http://localhost:3000/api/entries', {
+        method: 'POST',
+        headers: {
+         'Content-Type': 'application/json',
+         'x-access-token': token
+        },
+        body: JSON.stringify(message)
+      })
+        .then((response) => {
+          console.log("NOW, GET ENTRIES AND POP")
+          this.getEntries();
+          navigator.pop();
+        })
+          .catch((error) => {
+            console.warn("fetch error:", error)
+          });
+    });
+
+  }
+
 
   renderTab(navigator) {
     if (this.state.page === "EntriesTab") return <EntriesTab navigator={navigator} getEntries={ this.getEntries.bind(this) } entries={ this.state.entries }/>;
@@ -83,7 +147,7 @@ export default class Main extends Component {
       )
     } else if (route.title === 'MessageScene') {
       return (
-        <MessageScene navigator={navigator} getEntries={ this.getEntries.bind(this) }/> 
+        <MessageScene navigator={navigator} getEntries={ this.getEntries.bind(this) } updateEntry = { this.updateEntry.bind(this) }/> 
       )
     } else if (route.title === 'SearchFriends') {
       return (
@@ -100,52 +164,49 @@ export default class Main extends Component {
         renderScene={ this.navigatorRenderScene.bind(this) }
         navigationBar = {
           <Navigator.NavigationBar
-                routeMapper={{
-                  LeftButton(route, navigator, index, navState) {
-                    if (route.title === 'SearchFriends'){
-                      return (
-                        <Text onPress={()=>{ navigator.pop() }} >
-                          Go Back
-                        </Text>
-                      )
-                    }
-                  },
-                   RightButton: (route, navigator, index, navState) => {
-                      if ( this.state.page === "FriendsTab" && route.title !== 'SearchFriends'){
-                        return (
-                          <Text onPress={()=>{ navigator.push({title: 'SearchFriends'}) }} >
-                            Add Friends
-                          </Text>
-                        )
-                      }
-                   },
-                   Title: (route, navigator, index, navState) =>
-                     { return (<Text>{this.state.page}</Text>); }
-                 }}
-                 style={{backgroundColor: 'gray'}}
-               />
-        }
-      />
+            routeMapper={{
+
+              LeftButton(route, navigator, index, navState) {
+                if (route.title === 'SearchFriends'){
+                  return (
+                    <View style={ styles.topBarView }>
+                      <Text onPress={()=>{ navigator.pop() }} >
+                        GO BACK
+                      </Text>
+                    </View>
+                  )
+                }
+              },
+
+              RightButton: (route, navigator, index, navState) => {
+                if ( this.state.page === 'FriendsTab' && route.title !== 'SearchFriends'){
+                  return (
+                    <View style={ styles.topBarView }>
+                      <Text onPress={()=>{ navigator.push({title: 'SearchFriends'}) }} >
+                        Add Friends
+                      </Text>
+                    </View>
+                  )
+                } 
+                if ( this.state.page === 'EntriesTab' && route.title === 'MessageScene' ) {
+                  return (
+                    <View style={ styles.topBarView }>
+                      <Text onPress={(() => { this.postEntry(navigator); }).bind(this) } >
+                        Publish
+                      </Text>
+                    </View>
+                  );
+                }
+              },
+
+              Title: (route, navigator, index, navState) =>
+
+                { return (<Text>{this.state.page}</Text>); }
+            }
+          }
+          style={ styles.topBar } />
+        } />
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  tabbar: {
-    backgroundColor:'white',
-    height: 64,
-    borderTopColor: 'red',
-    borderTopWidth: 2
-  },
-  textinput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
-
-  }
-});

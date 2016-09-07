@@ -32,34 +32,9 @@ export default class FriendScene extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-
-    this.state = {
-      text: ''
-    };
   };
 
-  postEntry(){
-    AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-      var message = {text:this.state.text};
-
-      fetch('http://localhost:3000/api/entries', {
-        method: 'POST',
-        headers: {
-         'Content-Type': 'application/json',
-         'x-access-token': token
-        },
-        body: JSON.stringify(message)
-      })
-        .then((response) => {
-          this.props.getEntries();
-          this.props.navigator.pop();
-        })
-          .catch((error) => {
-            console.warn("fetch error:", error)
-          });
-    });
-
-  }
+  // value={this.state.text}
 
   render() {
     return (
@@ -68,9 +43,7 @@ export default class FriendScene extends Component {
         <TextInput
             placeholder= 'What did you do today?'
             style={[styles.textinput, styles.fadedText]}
-            value={this.state.text}
-            onChangeText={ (text) => this.setState({text})}
-            onSubmitEditing= { this.postEntry.bind(this) } />
+            onChangeText={ (text) => this.props.updateEntry(text) } />
       </View>
     )
   }
