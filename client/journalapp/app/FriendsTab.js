@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import FriendList from './FriendList';
+import RequestList from './RequestList';
 import EntryList from './EntryList';
 
 export default class FriendsTab extends Component {
@@ -19,12 +20,14 @@ export default class FriendsTab extends Component {
     this.props = props;
 
     this.state = {
-      friendList: [{username:"test", fullname:"test"}]
+      friendList: [{username:"test", fullname:"test"}],
+      pendingRequests: []
     };
   };
 
   componentWillMount(){
     this.getFriends();
+    this.getFriendRequests();
   }
 
   getFriends(){
@@ -35,7 +38,7 @@ export default class FriendsTab extends Component {
           'Content-Type': 'application/json',
           'x-access-token': token
         }
-      })    
+      })
       .then( resp => { resp.json()
         .then( json => {
           this.setState({
@@ -49,9 +52,35 @@ export default class FriendsTab extends Component {
     });
   }
 
+  getFriendRequests(){
+    AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+      fetch('http://localhost:3000/api/friendreq', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token
+        }
+      })
+      .then( resp => { resp.json()
+        .then( json => {
+          this.setState({
+            pendingRequests: json
+          })
+        })
+        .catch((error) => {
+          console.warn("fetch error on getrequest:", error)
+        });
+      });
+    });
+  }
+
+
   render() {
     return (
+      <View>
+      <RequestList requestList={ this.state.pendingRequests } navigator={this.props.navigator} />
       <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} />
+      </View>
     )
   }
 }

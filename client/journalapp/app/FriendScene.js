@@ -23,24 +23,19 @@ export default class FriendScene extends Component {
   };
 
   componentWillMount(){
-    //this.getFriendPosts();
     this.getFriendPosts()
   }
 
   getFriendPosts(){
-    console.log('FriendScene props.friendId', this.props.friendId);
-    var context = this;
+    var url = 'http://localhost:3000/api/entries' + "/?userId=" + this.props.friendId.toString();
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-      fetch('http://localhost:3000/api/entries', {
+      fetch(url , {
         method: 'GET',
-        query: {
-          userId: context.props.friendId
-        },
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': token
         }
-      })    
+      })
       .then( resp => { resp.json()
         .then( json => {
           console.log('Fetched friends posts', json);
