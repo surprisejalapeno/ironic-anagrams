@@ -13,6 +13,7 @@ var FriendList = (props) => {
   return (
 
     <View>
+    <Text>Your Friends</Text>
       { props.friendList.map( (friend) => {
         return ( <Friend username={ friend.username } fullname={ friend.fullname } id={ friend.id } navigator={props.navigator}/> );
       }) }

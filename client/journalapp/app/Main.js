@@ -29,7 +29,7 @@ export default class Main extends Component {
     if (this.state.page === "SettingsTab") return <SettingsTab signOut={ this.props.signOut }/>;
   }
 
-  navigatorRenderScene(route, navigator) { 
+  navigatorRenderScene(route, navigator) {
     const { page } = this.state;
     if (route.title === 'Main') {
       return (
@@ -56,10 +56,28 @@ export default class Main extends Component {
   }
 
   render() {
+
     return (
-      <Navigator 
+      <Navigator
         initialRoute={ { title: 'Main' } }
         renderScene={ this.navigatorRenderScene.bind(this) }
+        navigationBar = {
+          <Navigator.NavigationBar
+                 routeMapper={{
+                   LeftButton(route, navigator, index, navState) {
+                     // some component or null
+                   },
+                   RightButton(route, navigator, index, navState) {
+                      // if ( this.state.page === "FriendsTab"){
+                      //   return (<Text>Add Friends</Text>)
+                      // }
+                   },
+                   Title: (route, navigator, index, navState) =>
+                     { return (<Text>{this.state.page}</Text>); }
+                 }}
+                 style={{backgroundColor: 'gray'}}
+               />
+        }
       />
     )
   }
