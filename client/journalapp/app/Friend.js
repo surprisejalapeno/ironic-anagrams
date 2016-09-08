@@ -12,7 +12,7 @@ var Friend = (props) => {
   return (
     <View>
       <Text onPress={()=>{ props.navigator.push({title: 'FriendPage', friendId: props.id }) }}>
-      Fullname: { props.fullname } Username: { props.username }
+      { props.fullname }
       </Text>
     </View>
 
