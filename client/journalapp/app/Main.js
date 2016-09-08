@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f5f6f6'
   },
-<<<<<<< HEAD
   textinput: {
     height: 40,
     borderColor: 'gray',
@@ -36,24 +35,16 @@ const styles = StyleSheet.create({
   faintText: {
     color: 'rgba(100,100,100,.6)'
   },
-=======
->>>>>>> 67de12a6885545a54fdfc338eec2d46104e43824
   topBar: {
     width: Dimensions.get('window').width,
     height: 60,
     backgroundColor: 'white',
     borderBottomWidth: 1,
-<<<<<<< HEAD
     borderBottomColor: 'rgba(175,175,175,.6)'
   }, 
   topBarView: {
     marginTop: 3, 
-=======
     borderBottomColor: 'rgba(100,100,100,.6)',
-  },
-  topBarView: {
-    margin: 3,
->>>>>>> 67de12a6885545a54fdfc338eec2d46104e43824
   },
   tabbar: {
     backgroundColor:'white',
@@ -202,7 +193,7 @@ export default class Main extends Component {
             routeMapper={{
 
               LeftButton(route, navigator, index, navState) {
-                if (route.title === 'SearchFriends'){
+                if (  route.title === 'FriendPage' ){
                   return (
                     <View style={ styles.topBarView }>
                       <Text onPress={()=>{ navigator.pop() }} >
@@ -210,10 +201,12 @@ export default class Main extends Component {
                       </Text>
                     </View>
                   )
-                } else if ( route.title === 'MessageScene') {
+                } else if ( route.title === 'SearchFriends') {
                   return (
                     <View style={ styles.topBarView }>
-                      <Text onPress={ () => { navigator.pop() } }>GO BACK</Text>
+                      <Text onPress={ () => { navigator.pop() } }>
+                        GO BACK
+                      </Text>
                     </View>
                   )
                 }

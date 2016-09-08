@@ -101,6 +101,7 @@ export default class FriendsTab extends Component {
 
 
   render() {
+    
     return (
       <View style={styles.background}>
       <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
