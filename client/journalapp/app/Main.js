@@ -5,8 +5,8 @@ import {
   TextInput,
   ListView,
   View,
-  Navigator, 
-  AsyncStorage, 
+  Navigator,
+  AsyncStorage,
   Dimensions,
   Image
 } from 'react-native';
@@ -24,8 +24,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#f5f6f6'
   },
+<<<<<<< HEAD
   textinput: {
     height: 40,
     borderColor: 'gray',
@@ -34,15 +36,24 @@ const styles = StyleSheet.create({
   faintText: {
     color: 'rgba(100,100,100,.6)'
   },
+=======
+>>>>>>> 67de12a6885545a54fdfc338eec2d46104e43824
   topBar: {
     width: Dimensions.get('window').width,
     height: 60,
     backgroundColor: 'white',
     borderBottomWidth: 1,
+<<<<<<< HEAD
     borderBottomColor: 'rgba(175,175,175,.6)'
   }, 
   topBarView: {
     marginTop: 3, 
+=======
+    borderBottomColor: 'rgba(100,100,100,.6)',
+  },
+  topBarView: {
+    margin: 3,
+>>>>>>> 67de12a6885545a54fdfc338eec2d46104e43824
   },
   tabbar: {
     backgroundColor:'white',
@@ -61,7 +72,6 @@ const styles = StyleSheet.create({
    fontWeight:'700',
    marginBottom:6.5,
    color:"#878787"
-
   }
 });
 
@@ -73,7 +83,7 @@ export default class Main extends Component {
 
     this.state = {
       page: 'EntriesTab',
-      entries: ds.cloneWithRows([]), 
+      entries: ds.cloneWithRows([]),
       newEntry: ''
     };
   }
@@ -140,7 +150,6 @@ export default class Main extends Component {
     if (route.title === 'Main') {
       return (
         <View style={styles.container}>
-          <Text>{page}</Text>
 
           {this.renderTab(navigator)}
 
@@ -173,7 +182,7 @@ export default class Main extends Component {
       )
     } else if (route.title === 'MessageScene') {
       return (
-        <MessageScene navigator={navigator} getEntries={ this.getEntries.bind(this) } updateEntry = { this.updateEntry.bind(this) }/> 
+        <MessageScene navigator={navigator} getEntries={ this.getEntries.bind(this) } updateEntry = { this.updateEntry.bind(this) }/>
       )
     } else if (route.title === 'SearchFriends') {
       return (
@@ -221,6 +230,7 @@ export default class Main extends Component {
                   )
                 } 
                 if ( route.title === 'MessageScene' ) {
+
                   return (
                     <View style={ styles.topBarView }>
                       <Text style={ styles.faintText } onPress={(() => { this.postEntry(navigator); }).bind(this) } >

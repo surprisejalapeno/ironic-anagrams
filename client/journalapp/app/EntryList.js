@@ -11,7 +11,7 @@ import {
 import Entry from './Entry';
 
 var EntryList = ({entries}) => (
-    <ListView 
+    <ListView style ={styles.container}
        dataSource={entries}
        renderRow={ (rowData) =>
           <Entry text={ rowData.text } createdAt={ rowData.createdAt }/>
@@ -22,3 +22,9 @@ var EntryList = ({entries}) => (
 
 module.exports = EntryList;
 
+var styles = StyleSheet.create({
+  container: {
+    position:'relative',
+    paddingTop:30
+  }
+})

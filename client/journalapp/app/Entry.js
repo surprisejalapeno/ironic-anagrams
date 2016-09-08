@@ -12,32 +12,31 @@ import {
 
 var styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width * .9,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-    padding: 10
+    borderBottomWidth: 0.5,
+    borderColor: '#cccccc',
+    paddingTop:12,
+    paddingBottom:12
   },
   date: {
     position: 'absolute',
-    marginTop: .5,
     alignSelf: 'center',
-    fontSize: 12,
-    color: 'green',
+    fontSize: 11,
+    color: '#999999',
     flexDirection: 'row',
+    fontWeight: '500'
   },
   entryText: {
     flex: 1,
     position: 'relative',
     marginTop: 20,
     flexDirection: 'column',
-    fontSize: 16,
-    fontWeight: 'bold',
-    paddingBottom: 3
+    fontSize: 15,
+    fontWeight: '500',
+    color:"#424242",
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     paddingBottom: 2,
   }
 });
@@ -52,15 +51,15 @@ var Entry = (props) => (
         { props.text }
       </Text>
     </View>
-  </View>  
+  </View>
 );
 
 module.exports = Entry;
 
 var parseDate = (date) => {
 
-  date = new Date(date); 
+  date = new Date(date);
 
-  return DateFormatter(date, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+  return DateFormatter(date, "ddd, mmm d");
 
 };

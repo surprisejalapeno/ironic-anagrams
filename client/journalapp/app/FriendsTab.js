@@ -112,9 +112,6 @@ export default class FriendsTab extends Component {
 
 const styles = StyleSheet.create({
   background: {
-    //flex: 1,
-    //height: 40,
-    backgroundColor: '#f5f6f6',
     alignItems: 'center'
   },
 });
