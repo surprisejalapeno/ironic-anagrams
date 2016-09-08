@@ -13,20 +13,16 @@ import {
 } from 'react-native';
 
 import Button from 'react-native-button';
-// Refactored to use import instead of ES2015 require, for consistency 
+// Refactored to use import instead of ES2015 require, for consistency
 
 import EntryList from './EntryList';
 
 const styles = StyleSheet.create({
-  textinput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
-
-  },
   container: {
-    width: Dimensions.get('window').width * .9,
-    paddingTop: 70
+    width: Dimensions.get('window').width*.93,
+    paddingLeft:6,
+    paddingRight:6,
+    marginTop: 60
   }
 });
 
