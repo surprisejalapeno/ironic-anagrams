@@ -223,7 +223,6 @@ export default class Main extends Component {
                   )
                 } 
                 if ( route.title === 'MessageScene' ) {
-
                   return (
                     <View style={ styles.topBarView }>
                       <Text style={ styles.faintText } onPress={(() => { this.postEntry(navigator); }).bind(this) } >
