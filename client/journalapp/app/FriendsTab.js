@@ -7,12 +7,14 @@ import {
   TextInput,
   View,
   AsyncStorage,
-  Navigator
+  Navigator,
+  Dimensions
 } from 'react-native';
 
 import FriendList from './FriendList';
 import RequestList from './RequestList';
 import EntryList from './EntryList';
+
 
 export default class FriendsTab extends Component {
   constructor(props) {
@@ -42,7 +44,7 @@ export default class FriendsTab extends Component {
       })
       .then( resp => { resp.json()
         .then( json => {
-          if (json.name !== 'SequelizeDatabaseError') { 
+          if (json.name !== 'SequelizeDatabaseError') {
             this.setState({ friendList: json })
           };
         })
@@ -103,20 +105,28 @@ export default class FriendsTab extends Component {
   }
 
   render() {
-    
+
     return (
-      <View style={styles.background}>
-      <RequestList requestList={ this.state.pendingRequests } acceptFriend={ this.acceptFriendRequest.bind(this) } navigator={ this.props.navigator } />
-      <FriendList friendList={ this.state.friendList } navigator={ this.props.navigator } updateFriend= { this.props.updateFriend }/>
+      <View style= { styles.container } >
+        <RequestList style= {styles.innerContainer} requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
+        <FriendList style= {styles.innerContainer} friendList={ this.state.friendList } navigator={this.props.navigator} />
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  background: {
-    alignItems: 'center'
-  },
+ container: {
+   width: Dimensions.get('window').width,
+   paddingLeft:6,
+   paddingRight:6,
+   paddingTop: 6,
+   paddingBottom:6,
+   flexDirection:'column'
+ },
+ innerContainer: {
+  marginTop:12
+ }
 });
 
 

@@ -15,7 +15,7 @@ var RequestList = (props) => {
     return (
 
       <View>
-      <Text>Pending Friend Requests</Text>
+      <Text style={ styles.subHeader } >Pending Friend Requests</Text>
         { props.requestList.map( (request) => {
           return ( <Request fullname={ request.user.fullname } requestId={request.id} acceptFriend={props.acceptFriend} navigator={props.navigator}/> );
         }) }
@@ -29,5 +29,15 @@ var RequestList = (props) => {
       )
   }
 };
+
+const styles = StyleSheet.create({
+  subHeader: {
+    fontSize: 12,
+    fontWeight: '700',
+    color:"#424242",
+    marginLeft:12,
+    marginBottom:12
+  }
+});
 
 module.exports = RequestList;
