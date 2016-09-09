@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   View,
+  ScrollView,
   AsyncStorage,
   Navigator,
   Dimensions
@@ -108,8 +109,10 @@ export default class FriendsTab extends Component {
 
     return (
       <View style= { styles.container } >
+        <ScrollView>
         <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
         <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} updateFriend={ this.props.updateFriend }/>
+        </ScrollView>
       </View>
     )
   }
