@@ -14,11 +14,11 @@ var Friend = (props) => {
   return (
 
     <View style={styles.container}>
-      <View style={ styles.row } >
-
-
-        <Text style={ styles.bodyText } onPress={()=>{ props.navigator.push({title: 'FriendPage', friendId: props.id });
+      <View style={ styles.row } onPress={()=>{ props.navigator.push({title: 'FriendPage', friendId: props.id });
                                                        props.updateFriend(props.fullname);}}>
+
+
+        <Text style={ styles.bodyText } >
         { props.fullname }
         </Text>
 
