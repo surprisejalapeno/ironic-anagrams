@@ -8,7 +8,8 @@ import {
   Navigator,
   AsyncStorage,
   Dimensions,
-  Image
+  Image, 
+  TouchableHighlight
 } from 'react-native';
 
 import Tabs from 'react-native-tabs';
@@ -72,7 +73,15 @@ const styles = StyleSheet.create({
   arrow: {
     alignSelf:'flex-end',
     flexDirection: 'column',
-    fontSize:24,
+    fontSize:30,
+    color:"#c7c7cc",
+    padding: 6
+  },
+  image: {
+    height: 30,
+    width: 30,
+    alignSelf:'flex-end',
+    flexDirection: 'column',
     color:"#c7c7cc",
   }
 });
@@ -215,7 +224,7 @@ export default class Main extends Component {
                   return (
                     <View style={ styles.topBarView }>
                       <Text onPress={ ()=>{ navigator.pop() }} >
-                        GO BACK
+                        <Icon style= { styles.arrow } name="chevron-left"/>
                       </Text>
                     </View>
                   )
@@ -231,11 +240,11 @@ export default class Main extends Component {
               },
 
               RightButton: (route, navigator, index, navState) => {
-                if ( this.state.page === 'FriendsTab' && route.title !== 'SearchFriends'){
+                if ( this.state.page === 'FriendsTab' && route.title !== 'SearchFriends' && route.title !== 'FriendPage'){
                   return (
                     <View style={ styles.topBarView }>
                       <Text onPress={()=>{ navigator.push({title: 'SearchFriends'}) }} >
-                        Add Friends
+                        <Image style={styles.image} source={require('./images/Add_Friend.png')}/>
                       </Text>
                     </View>
                   )

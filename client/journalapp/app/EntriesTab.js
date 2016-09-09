@@ -9,12 +9,12 @@ import {
   ListView,
   View,
   AsyncStorage,
-  Dimensions
+  Dimensions, 
+  Image
 } from 'react-native';
 
 import DateFormatter from 'dateformat';
 import Button from 'react-native-button';
-import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import EntryList from './EntryList';
 
@@ -39,9 +39,16 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   }, 
   headerButton: {
+    marginTop: 5,
     justifyContent: 'center',
-    width: 200,
+    width: Dimensions.get('window').width * .75,
     alignSelf: 'center'
+  },
+  tabbarimage: {
+    height: 20,
+    width: 20,
+    marginLeft: 0, 
+    position: 'absolute', 
   }
 });
 
@@ -65,7 +72,7 @@ export default class EntriesTab extends Component {
           <Button style={ styles.headerButton } 
                   onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) } 
                   > 
-                  What did you do today? 
+                  What did you do today?<Image style={styles.tabbarimage} source={require('./images/Pen_Icon.png')}/>
           </Button>
         </View>
         <EntryList entries = { this.props.entries } />
