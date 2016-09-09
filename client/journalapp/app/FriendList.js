@@ -16,7 +16,7 @@ var FriendList = (props) => {
     <View>
     <Text style={ styles.subHeader } >Your Friends</Text>
       { props.friendList.map( (friend) => {
-        return ( <Friend username={ friend.username } fullname={ friend.fullname } id={ friend.id } navigator={props.navigator} updateFriend={ props.updateFriend }/> );
+        return ( <Friend username={ friend.username } fullname={ friend.fullname } id={ friend.id } navigator={ props.navigator } updateFriend={ props.updateFriend }/> );
       }) }
 
     </View>

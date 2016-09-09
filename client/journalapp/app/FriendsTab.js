@@ -108,8 +108,8 @@ export default class FriendsTab extends Component {
 
     return (
       <View style= { styles.container } >
-        <RequestList style= {styles.innerContainer} requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
-        <FriendList style= {styles.innerContainer} friendList={ this.state.friendList } navigator={this.props.navigator} />
+        <RequestList style={styles.innerContainer} requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
+        <FriendList style={styles.innerContainer} friendList={ this.state.friendList } navigator={this.props.navigator} updateFriend={ this.props.updateFriend }/>
       </View>
     )
   }

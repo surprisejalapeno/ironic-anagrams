@@ -17,7 +17,8 @@ var Friend = (props) => {
       <View style={ styles.row } >
 
 
-        <Text style={ styles.bodyText } onPress={()=>{ props.navigator.push({title: 'FriendPage', friendId: props.id }) }}>
+        <Text style={ styles.bodyText } onPress={()=>{ props.navigator.push({title: 'FriendPage', friendId: props.id });
+                                                       props.updateFriend(props.fullname);}}>
         { props.fullname }
         </Text>
 
