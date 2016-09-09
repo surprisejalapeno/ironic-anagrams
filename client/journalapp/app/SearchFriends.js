@@ -18,7 +18,8 @@ export default class SearchFriends extends Component {
 
     this.state = {
       text: '',
-      results: []
+      results: [],
+
     }
 
   };
@@ -81,7 +82,6 @@ export default class SearchFriends extends Component {
           style={styles.textinput}
           placeholder= 'Search for your friend by username'
           onChangeText={(text) => this.findMatching(text)} />
-        <Text onPress={ () => { this.props.navigator.pop() } }>Go Back</Text>
         <SearchResultsList results={this.state.results} sendreq={this.sendFriendReq.bind(this)}/>
       </View>
     )
