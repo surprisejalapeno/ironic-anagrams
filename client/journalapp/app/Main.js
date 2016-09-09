@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     fontSize:30,
     color:"#c7c7cc",
-    padding: 6
+    marginLeft: 12
   },
   image: {
     height: 30,
@@ -85,9 +85,10 @@ const styles = StyleSheet.create({
     color:"#c7c7cc",
   },
   title: {
-    marginTop: 7,
+    marginTop: 5,
     height: 53,
-    fontSize: 20,
+    fontSize: 17,
+    fontWeight: '600'
   },
   rightArrow: {
     marginTop: 10,
