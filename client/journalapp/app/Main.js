@@ -196,7 +196,7 @@ export default class Main extends Component {
                 if (  route.title === 'FriendPage' || route.title === 'SearchFriends' || route.title === 'MessageScene'){
                   return (
                     <View style={ styles.topBarView }>
-                      <Text onPress={()=>{ navigator.pop() }} >
+                      <Text onPress={ ()=>{ navigator.pop() }} >
                         GO BACK
                       </Text>
                     </View>

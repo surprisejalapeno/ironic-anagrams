@@ -17,7 +17,7 @@ export default class SearchFriends extends Component {
     this.props = props;
 
     this.state = {
-      text: "Search for friends by username",
+      text: '',
       results: []
     }
 
@@ -73,13 +73,13 @@ export default class SearchFriends extends Component {
 
 
 
-
+  // Use lodash throttling (recastly sprint) to prevent blowing up the server
   render() {
     return (
       <View style={styles.container}>
         <TextInput
           style={styles.textinput}
-          value= {this.state.text}
+          placeholder= 'Search for your friend by username'
           onChangeText={(text) => this.findMatching(text)} />
         <Text onPress={ () => { this.props.navigator.pop() } }>Go Back</Text>
         <SearchResultsList results={this.state.results} sendreq={this.sendFriendReq.bind(this)}/>
