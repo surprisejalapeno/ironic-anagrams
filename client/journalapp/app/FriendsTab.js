@@ -17,6 +17,7 @@ import EntryList from './EntryList';
 export default class FriendsTab extends Component {
   constructor(props) {
     super(props);
+
     this.props = props;
 
     this.state = {
@@ -105,8 +106,8 @@ export default class FriendsTab extends Component {
     
     return (
       <View style={styles.background}>
-      <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
-      <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} />
+      <RequestList requestList={ this.state.pendingRequests } acceptFriend={ this.acceptFriendRequest.bind(this) } navigator={ this.props.navigator } />
+      <FriendList friendList={ this.state.friendList } navigator={ this.props.navigator } updateFriend= { this.props.updateFriend }/>
       </View>
     )
   }
