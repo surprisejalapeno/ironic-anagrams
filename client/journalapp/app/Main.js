@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
     borderTopColor: 'gray',
     borderTopWidth: 0.5
   },
+  tabbarView: {
+    opacity: 0.4
+  },
   tabbarimage: {
     height: 35,
     width:35,
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
    fontSize:10,
    fontWeight:'700',
    marginBottom:6.5,
-   color:"#878787"
+   color:"#424242"
   }
 });
 
@@ -147,19 +150,19 @@ export default class Main extends Component {
           <Tabs
             selected={page}
             style={styles.tabbar}
-            selectedStyle={{color:'#333333'}} onSelect={el=>this.setState({page:el.props.name})}>
+            selectedStyle={{ opacity: 1 }} onSelect={el=>this.setState({page:el.props.name})}>
 
-            <View name="EntriesTab">
+            <View name="EntriesTab" style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Home_Active.png')}/>
               <Text style={styles.tabbartext}> Entries</Text>
             </View>
 
-            <View name="FriendsTab">
+            <View name="FriendsTab" style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Friends_Active.png')}/>
               <Text style={styles.tabbartext}>Friends</Text>
             </View>
 
-            <View name="SettingsTab">
+            <View name="SettingsTab" style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Settings_Active.png')}/>
               <Text style={styles.tabbartext}>Settings</Text>
             </View>
