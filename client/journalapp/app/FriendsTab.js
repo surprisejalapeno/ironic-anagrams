@@ -106,8 +106,8 @@ export default class FriendsTab extends Component {
 
     return (
       <View style= { styles.container } >
-      <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
-      <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} />
+        <RequestList style= {styles.innerContainer} requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
+        <FriendList style= {styles.innerContainer} friendList={ this.state.friendList } navigator={this.props.navigator} />
       </View>
     )
   }
@@ -119,7 +119,11 @@ const styles = StyleSheet.create({
    paddingLeft:6,
    paddingRight:6,
    paddingTop: 6,
-   paddingBottom:6
+   paddingBottom:6,
+   flexDirection:'column'
+ },
+ innerContainer: {
+  marginTop:12
  }
 });
 
