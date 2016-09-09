@@ -110,8 +110,8 @@ export default class FriendsTab extends Component {
     return (
       <View style= { styles.container } >
         <ScrollView>
-        <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
-        <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} updateFriend={ this.props.updateFriend }/>
+          <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
+          <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} updateFriend={ this.props.updateFriend }/>
         </ScrollView>
       </View>
     )
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
    paddingTop: 6,
    paddingBottom:6,
    marginTop:52,
+   marginBottom: 52,
    flex: 1,
    flexDirection:'column',
    justifyContent:'flex-start'
