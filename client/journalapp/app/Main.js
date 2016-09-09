@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
     borderTopColor: 'gray',
     borderTopWidth: 0.5
   },
+  tabbarView: {
+    opacity: 0.4
+  },
   tabbarimage: {
     height: 35,
     width:35,
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
    fontSize:10,
    fontWeight:'700',
    marginBottom:6.5,
-   color:"#878787"
+   color:"#424242"
   }
 });
 
@@ -75,7 +78,8 @@ export default class Main extends Component {
     this.state = {
       page: 'EntriesTab',
       entries: ds.cloneWithRows([]),
-      newEntry: ''
+      newEntry: '', 
+      friendName: ''
     };
   }
 
@@ -108,6 +112,12 @@ export default class Main extends Component {
     });
   }
 
+  updateFriend(name){
+    this.setState({
+      friendName: name
+    })
+  }
+
   postEntry(navigator){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       var message = {text: this.state.newEntry};
@@ -132,7 +142,7 @@ export default class Main extends Component {
 
   renderTab(navigator) {
     if (this.state.page === "EntriesTab") return <EntriesTab navigator={navigator} getEntries={ this.getEntries.bind(this) } entries={ this.state.entries }/>;
-    if (this.state.page === "FriendsTab") return <FriendsTab navigator={navigator} />;
+    if (this.state.page === "FriendsTab") return <FriendsTab navigator={navigator} updateFriend={ this.updateFriend.bind(this) }/>;
     if (this.state.page === "SettingsTab") return <SettingsTab signOut={ this.props.signOut }/>;
   }
 
@@ -147,19 +157,19 @@ export default class Main extends Component {
           <Tabs
             selected={page}
             style={styles.tabbar}
-            selectedStyle={{color:'#333333'}} onSelect={el=>this.setState({page:el.props.name})}>
+            selectedStyle={{ opacity: 1 }} onSelect={el=>this.setState({page:el.props.name})}>
 
-            <View name="EntriesTab">
+            <View name="EntriesTab" style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Home_Active.png')}/>
               <Text style={styles.tabbartext}> Entries</Text>
             </View>
 
-            <View name="FriendsTab">
+            <View name="FriendsTab" style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Friends_Active.png')}/>
               <Text style={styles.tabbartext}>Friends</Text>
             </View>
 
-            <View name="SettingsTab">
+            <View name="SettingsTab" style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Settings_Active.png')}/>
               <Text style={styles.tabbartext}>Settings</Text>
             </View>
@@ -193,7 +203,7 @@ export default class Main extends Component {
             routeMapper={{
 
               LeftButton(route, navigator, index, navState) {
-                if (  route.title === 'FriendPage' || route.title === 'SearchFriends' || route.title === 'MessageScene'){
+                if ( route.title === 'FriendPage' || route.title === 'SearchFriends' || route.title === 'MessageScene'){
                   return (
                     <View style={ styles.topBarView }>
                       <Text onPress={ ()=>{ navigator.pop() }} >
@@ -226,10 +236,29 @@ export default class Main extends Component {
               },
 
               Title: (route, navigator, index, navState) =>{
+                // Title views for the entries routes.
                 if ( route.title === 'MessageScene') {
-                  return (<Text style={ styles.faintText }>{ 100 - this.state.newEntry.length }</Text>)
-                } else { 
-                  return (<Text>{ this.state.page }</Text>); 
+                  return (<Text style = { styles.faintText }>{ 100 - this.state.newEntry.length }</Text>)
+                } else if ( this.state.page === 'EntriesTab' ) {
+                  return (<Text>{ 'My Story' }</Text>); 
+                }
+
+                // Title views for the friends routes.
+                if ( route.title === 'SearchFriends') {
+                  return (<Text>{ 'Add Friends' }</Text>); 
+                } else if ( route.title === 'FriendPage' ) {
+                  return (<Text>{ this.state.friendName } </Text>);
+                } else if ( this.state.page === 'FriendsTab' ) {
+                  return (<Text>{ 'Friends' }</Text>); 
+                }
+
+                // Title views for the settings route.
+                if (this.state.page === 'SettingsTab') {
+                  return (<Text>{ 'Settings' }</Text>); 
+                }
+
+                else { 
+                  return (<Text>{ 'ERROR: We haven\'t covered this route yet.' }</Text>); 
                 }
               }  
             }

@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 var Friend = (props) => {
 
   return (
+
     <View style={styles.container}>
       <View style={ styles.row } >
 
