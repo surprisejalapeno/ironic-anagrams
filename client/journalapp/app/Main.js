@@ -229,9 +229,21 @@ export default class Main extends Component {
               },
 
               Title: (route, navigator, index, navState) =>{
+                // Title views for the entries routes.
                 if ( route.title === 'MessageScene') {
-                  return (<Text style={ styles.faintText }>{ 100 - this.state.newEntry.length }</Text>)
-                } else { 
+                  return (<Text style = { styles.faintText }>{ 100 - this.state.newEntry.length }</Text>)
+                } else if ( this.state.page === 'EntriesTab' ) {
+                  return (<Text>{ 'My Story' }</Text>); 
+                }
+
+                // Title views for the friends routes.
+                if ( route.title === 'SearchFriends') {
+                  return (<Text>{ 'Add Friends' }</Text>); 
+                } else if ( this.state.page === 'FriendsTab' ) {
+                  return (<Text>{ 'Friends' }</Text>); 
+                }
+
+                 else { 
                   return (<Text>{ this.state.page }</Text>); 
                 }
               }  

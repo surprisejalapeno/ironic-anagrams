@@ -20,7 +20,7 @@ export default class FriendsTab extends Component {
     this.props = props;
 
     this.state = {
-      friendList: [{username:"test", fullname:"test"}],
+      friendList: [],
       pendingRequests: []
     };
   };
@@ -41,11 +41,9 @@ export default class FriendsTab extends Component {
       })
       .then( resp => { resp.json()
         .then( json => {
-          if (json.name !== 'SequelizeDatabaseError') {
-            this.setState({
-              friendList: json
-            });
-          }
+          if (json.name !== 'SequelizeDatabaseError') { 
+            this.setState({ friendList: json })
+          };
         })
         .catch((error) => {
           console.warn("error on json():", error)
