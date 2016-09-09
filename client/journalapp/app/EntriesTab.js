@@ -14,6 +14,7 @@ import {
 
 import DateFormatter from 'dateformat';
 import Button from 'react-native-button';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import EntryList from './EntryList';
 
@@ -61,7 +62,11 @@ export default class EntriesTab extends Component {
       <View style={ styles.container }>
         <View style={ styles.header }>
           <Text style={ styles.date }>{ DateFormatter(new Date(), "ddd, mmm d") }</Text>
-          <Button style={ styles.headerButton } onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) } > What did you do today? </Button>
+          <Button style={ styles.headerButton } 
+                  onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) } 
+                  > 
+                  What did you do today? 
+          </Button>
         </View>
         <EntryList entries = { this.props.entries } />
       </View>

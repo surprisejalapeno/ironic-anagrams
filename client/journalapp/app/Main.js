@@ -19,6 +19,8 @@ import FriendScene from './FriendScene';
 import MessageScene from './MessageScene';
 import SearchFriends from './SearchFriends';
 
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
 
 const styles = StyleSheet.create({
   container: {
@@ -66,6 +68,12 @@ const styles = StyleSheet.create({
    fontWeight:'700',
    marginBottom:6.5,
    color:"#424242"
+  }, 
+  arrow: {
+    alignSelf:'flex-end',
+    flexDirection: 'column',
+    fontSize:24,
+    color:"#c7c7cc",
   }
 });
 
@@ -203,7 +211,7 @@ export default class Main extends Component {
             routeMapper={{
 
               LeftButton(route, navigator, index, navState) {
-                if ( route.title === 'FriendPage' || route.title === 'SearchFriends' || route.title === 'MessageScene'){
+                if ( route.title === 'FriendPage' || route.title === 'SearchFriends' ){
                   return (
                     <View style={ styles.topBarView }>
                       <Text onPress={ ()=>{ navigator.pop() }} >
@@ -211,7 +219,15 @@ export default class Main extends Component {
                       </Text>
                     </View>
                   )
-                } 
+                } else if ( route.title === 'MessageScene' ){
+                  return (
+                    <View style={ styles.topBarView }>
+                      <Text onPress={ ()=>{ navigator.pop() }} >
+                        <Icon style= { styles.arrow } name="close"/>
+                      </Text>
+                    </View>
+                  )
+                }
               },
 
               RightButton: (route, navigator, index, navState) => {
