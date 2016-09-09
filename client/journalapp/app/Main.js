@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: 'white',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(175,175,175,.6)'
+    borderBottomColor: 'rgba(175,175,175,.6)', 
   }, 
   topBarView: {
     marginTop: 3, 
