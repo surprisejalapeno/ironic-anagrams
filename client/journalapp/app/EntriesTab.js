@@ -9,7 +9,8 @@ import {
   ListView,
   View,
   AsyncStorage,
-  Dimensions
+  Dimensions, 
+  Image
 } from 'react-native';
 
 import DateFormatter from 'dateformat';
@@ -38,9 +39,16 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   }, 
   headerButton: {
+    marginTop: 5,
     justifyContent: 'center',
-    width: 200,
+    width: Dimensions.get('window').width * .75,
     alignSelf: 'center'
+  },
+  tabbarimage: {
+    height: 20,
+    width: 20,
+    marginLeft: 0, 
+    position: 'absolute', 
   }
 });
 
@@ -61,7 +69,11 @@ export default class EntriesTab extends Component {
       <View style={ styles.container }>
         <View style={ styles.header }>
           <Text style={ styles.date }>{ DateFormatter(new Date(), "ddd, mmm d") }</Text>
-          <Button style={ styles.headerButton } onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) } > What did you do today? </Button>
+          <Button style={ styles.headerButton } 
+                  onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) } 
+                  > 
+                  What did you do today?<Image style={styles.tabbarimage} source={require('./images/Pen_Icon.png')}/>
+          </Button>
         </View>
         <EntryList entries = { this.props.entries } />
       </View>

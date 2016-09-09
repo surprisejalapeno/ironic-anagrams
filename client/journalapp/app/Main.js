@@ -8,7 +8,8 @@ import {
   Navigator,
   AsyncStorage,
   Dimensions,
-  Image
+  Image, 
+  TouchableHighlight
 } from 'react-native';
 
 import Tabs from 'react-native-tabs';
@@ -18,6 +19,8 @@ import SettingsTab from './SettingsTab';
 import FriendScene from './FriendScene';
 import MessageScene from './MessageScene';
 import SearchFriends from './SearchFriends';
+
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 
 const styles = StyleSheet.create({
@@ -66,6 +69,31 @@ const styles = StyleSheet.create({
    fontWeight:'700',
    marginBottom:6.5,
    color:"#424242"
+  }, 
+  arrow: {
+    alignSelf:'flex-end',
+    flexDirection: 'column',
+    fontSize:30,
+    color:"#c7c7cc",
+    padding: 6
+  },
+  image: {
+    height: 30,
+    width: 30,
+    alignSelf:'flex-end',
+    flexDirection: 'column',
+    color:"#c7c7cc",
+  }, 
+  title: {
+    marginTop: 7,
+    height: 53,
+    fontSize: 20, 
+  }, 
+  rightArrow: {
+    marginTop: 10,
+    marginRight: 10,
+    height: 53,
+    fontSize: 14, 
   }
 });
 
@@ -203,30 +231,38 @@ export default class Main extends Component {
             routeMapper={{
 
               LeftButton(route, navigator, index, navState) {
-                if ( route.title === 'FriendPage' || route.title === 'SearchFriends' || route.title === 'MessageScene'){
+                if ( route.title === 'FriendPage' || route.title === 'SearchFriends' ){
                   return (
                     <View style={ styles.topBarView }>
                       <Text onPress={ ()=>{ navigator.pop() }} >
-                        GO BACK
+                        <Icon style= { styles.arrow } name="chevron-left"/>
                       </Text>
                     </View>
                   )
-                } 
+                } else if ( route.title === 'MessageScene' ){
+                  return (
+                    <View style={ styles.topBarView }>
+                      <Text onPress={ ()=>{ navigator.pop() }} >
+                        <Icon style= { styles.arrow } name="close"/>
+                      </Text>
+                    </View>
+                  )
+                }
               },
 
               RightButton: (route, navigator, index, navState) => {
-                if ( this.state.page === 'FriendsTab' && route.title !== 'SearchFriends'){
+                if ( this.state.page === 'FriendsTab' && route.title !== 'SearchFriends' && route.title !== 'FriendPage'){
                   return (
-                    <View style={ styles.topBarView }>
+                    <View style={ [styles.topBarView, styles.rightArrow] }>
                       <Text onPress={()=>{ navigator.push({title: 'SearchFriends'}) }} >
-                        Add Friends
+                        <Image style={styles.image} source={require('./images/Add_Friend.png')}/>
                       </Text>
                     </View>
                   )
                 } 
                 if ( route.title === 'MessageScene' ) {
                   return (
-                    <View style={ styles.topBarView }>
+                    <View style={ [styles.topBarView, styles.rightArrow] }>
                       <Text style={ styles.faintText } onPress={(() => { this.postEntry(navigator); }).bind(this) } >
                         Publish
                       </Text>
@@ -238,27 +274,27 @@ export default class Main extends Component {
               Title: (route, navigator, index, navState) =>{
                 // Title views for the entries routes.
                 if ( route.title === 'MessageScene') {
-                  return (<Text style = { styles.faintText }>{ 100 - this.state.newEntry.length }</Text>)
+                  return (<Text style = { [styles.faintText, styles.title] }>{ 100 - this.state.newEntry.length }</Text>)
                 } else if ( this.state.page === 'EntriesTab' ) {
-                  return (<Text>{ 'My Story' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'My Story' }</Text>); 
                 }
 
                 // Title views for the friends routes.
                 if ( route.title === 'SearchFriends') {
-                  return (<Text>{ 'Add Friends' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'Add Friends' }</Text>); 
                 } else if ( route.title === 'FriendPage' ) {
-                  return (<Text>{ this.state.friendName } </Text>);
+                  return (<Text style={ styles.title }>{ this.state.friendName } </Text>);
                 } else if ( this.state.page === 'FriendsTab' ) {
-                  return (<Text>{ 'Friends' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'Friends' }</Text>); 
                 }
 
                 // Title views for the settings route.
                 if (this.state.page === 'SettingsTab') {
-                  return (<Text>{ 'Settings' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'Settings' }</Text>); 
                 }
 
                 else { 
-                  return (<Text>{ 'ERROR: We haven\'t covered this route yet.' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'ERROR: We haven\'t covered this route yet.' }</Text>); 
                 }
               }  
             }
