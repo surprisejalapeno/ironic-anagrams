@@ -10,6 +10,7 @@ import {
 import Friend from './Friend';
 
 var FriendList = (props) => {
+  
   return (
 
     <View>

@@ -41,14 +41,20 @@ export default class FriendsTab extends Component {
       })
       .then( resp => { resp.json()
         .then( json => {
-          this.setState({
-            friendList: json
-          })
+          if (json.name !== 'SequelizeDatabaseError') {
+            this.setState({
+              friendList: json
+            });
+          }
         })
         .catch((error) => {
-          console.warn("fetch error on getrequest:", error)
+          console.warn("error on json():", error)
         });
+      })
+      .catch( error => {
+        console.log("error on fetch()", error)
       });
+      ;
     });
   }
 
