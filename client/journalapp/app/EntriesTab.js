@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
 export default class EntriesTab extends Component {
   constructor(props) {
     super(props);
-
     this.props = props;
   }
 

@@ -17,10 +17,11 @@ import EntryList from './EntryList';
 export default class FriendsTab extends Component {
   constructor(props) {
     super(props);
+
     this.props = props;
 
     this.state = {
-      friendList: [{username:"test", fullname:"test"}],
+      friendList: [],
       pendingRequests: []
     };
   };
@@ -41,14 +42,18 @@ export default class FriendsTab extends Component {
       })
       .then( resp => { resp.json()
         .then( json => {
-          this.setState({
-            friendList: json
-          })
+          if (json.name !== 'SequelizeDatabaseError') { 
+            this.setState({ friendList: json })
+          };
         })
         .catch((error) => {
-          console.warn("fetch error on getrequest:", error)
+          console.warn("error on json():", error)
         });
+      })
+      .catch( error => {
+        console.log("error on fetch()", error)
       });
+      ;
     });
   }
 
@@ -97,15 +102,12 @@ export default class FriendsTab extends Component {
     });
   }
 
-
-
-
   render() {
     
     return (
       <View style={styles.background}>
-      <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
-      <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} />
+      <RequestList requestList={ this.state.pendingRequests } acceptFriend={ this.acceptFriendRequest.bind(this) } navigator={ this.props.navigator } />
+      <FriendList friendList={ this.state.friendList } navigator={ this.props.navigator } updateFriend= { this.props.updateFriend }/>
       </View>
     )
   }

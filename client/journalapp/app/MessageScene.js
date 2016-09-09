@@ -3,10 +3,9 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
+  ScrollView,
   AsyncStorage,
   Navigator,
-  ListView, 
   Dimensions
 } from 'react-native';
 
@@ -14,15 +13,17 @@ import Button from 'react-native-button';
 
 
 const styles = StyleSheet.create({
-  textinput: {
-    height: 40, 
-    maxWidth: Dimensions.get('window').width * .75 
-  },
   container: {
-    flex: 1,
-    flexDirection: 'column',
-    width: Dimensions.get('window').width * .9,
-    paddingTop: 70
+    borderColor: 'gray',
+    width: Dimensions.get('window').width * 1,
+    paddingTop: 70, 
+    marginLeft: 0
+  },
+  textinput: {
+    fontSize: 14,
+    height: Dimensions.get('window').height * .75, 
+    marginLeft: Dimensions.get('window').width * .05,
+    marginRight: Dimensions.get('window').width * .05,
   },
   fadedText: {
     fontSize: 16,
@@ -43,15 +44,16 @@ export default class FriendScene extends Component {
 
   render() {
     return (
-      <View style={ styles.container }>
+      <ScrollView style={ styles.container }>
         <TextInput
             keyboardType='default'
             keyboardAppearance='light' 
+            multiline={ true }
             placeholder= 'What did you do today?'
             style={ [styles.textinput, styles.fadedText] }
             maxLength={ 100 } 
             onChangeText={ (text) => this.props.updateEntry(text) } />
-      </View>
+      </ScrollView>
     )
   }
 }

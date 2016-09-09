@@ -33,7 +33,6 @@ export default class AuthParent extends React.Component {
 
     return (
         <View style={styles.container}>
-        <Text>{page}</Text>
 
         {this.renderTab()}
 
