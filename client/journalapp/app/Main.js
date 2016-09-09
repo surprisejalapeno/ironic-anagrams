@@ -83,6 +83,17 @@ const styles = StyleSheet.create({
     alignSelf:'flex-end',
     flexDirection: 'column',
     color:"#c7c7cc",
+  }, 
+  title: {
+    marginTop: 7,
+    height: 53,
+    fontSize: 20, 
+  }, 
+  rightArrow: {
+    marginTop: 10,
+    marginRight: 10,
+    height: 53,
+    fontSize: 14, 
   }
 });
 
@@ -242,7 +253,7 @@ export default class Main extends Component {
               RightButton: (route, navigator, index, navState) => {
                 if ( this.state.page === 'FriendsTab' && route.title !== 'SearchFriends' && route.title !== 'FriendPage'){
                   return (
-                    <View style={ styles.topBarView }>
+                    <View style={ [styles.topBarView, styles.rightArrow] }>
                       <Text onPress={()=>{ navigator.push({title: 'SearchFriends'}) }} >
                         <Image style={styles.image} source={require('./images/Add_Friend.png')}/>
                       </Text>
@@ -251,7 +262,7 @@ export default class Main extends Component {
                 } 
                 if ( route.title === 'MessageScene' ) {
                   return (
-                    <View style={ styles.topBarView }>
+                    <View style={ [styles.topBarView, styles.rightArrow] }>
                       <Text style={ styles.faintText } onPress={(() => { this.postEntry(navigator); }).bind(this) } >
                         Publish
                       </Text>
@@ -263,27 +274,27 @@ export default class Main extends Component {
               Title: (route, navigator, index, navState) =>{
                 // Title views for the entries routes.
                 if ( route.title === 'MessageScene') {
-                  return (<Text style = { styles.faintText }>{ 100 - this.state.newEntry.length }</Text>)
+                  return (<Text style = { [styles.faintText, styles.title] }>{ 100 - this.state.newEntry.length }</Text>)
                 } else if ( this.state.page === 'EntriesTab' ) {
-                  return (<Text>{ 'My Story' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'My Story' }</Text>); 
                 }
 
                 // Title views for the friends routes.
                 if ( route.title === 'SearchFriends') {
-                  return (<Text>{ 'Add Friends' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'Add Friends' }</Text>); 
                 } else if ( route.title === 'FriendPage' ) {
-                  return (<Text>{ this.state.friendName } </Text>);
+                  return (<Text style={ styles.title }>{ this.state.friendName } </Text>);
                 } else if ( this.state.page === 'FriendsTab' ) {
-                  return (<Text>{ 'Friends' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'Friends' }</Text>); 
                 }
 
                 // Title views for the settings route.
                 if (this.state.page === 'SettingsTab') {
-                  return (<Text>{ 'Settings' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'Settings' }</Text>); 
                 }
 
                 else { 
-                  return (<Text>{ 'ERROR: We haven\'t covered this route yet.' }</Text>); 
+                  return (<Text style={ styles.title }>{ 'ERROR: We haven\'t covered this route yet.' }</Text>); 
                 }
               }  
             }
