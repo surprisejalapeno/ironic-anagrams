@@ -193,7 +193,7 @@ export default class Main extends Component {
             routeMapper={{
 
               LeftButton(route, navigator, index, navState) {
-                if (  route.title === 'FriendPage' || route.title === 'SearchFriends' || route.title === 'MessageScene'){
+                if ( route.title === 'FriendPage' || route.title === 'SearchFriends' || route.title === 'MessageScene'){
                   return (
                     <View style={ styles.topBarView }>
                       <Text onPress={ ()=>{ navigator.pop() }} >
