@@ -243,8 +243,13 @@ export default class Main extends Component {
                   return (<Text>{ 'Friends' }</Text>); 
                 }
 
-                 else { 
-                  return (<Text>{ this.state.page }</Text>); 
+                // Title views for the settings route.
+                if (this.state.page === 'SettingsTab') {
+                  return (<Text>{ 'Settings' }</Text>); 
+                }
+
+                else { 
+                  return (<Text>{ 'ERROR: We haven\'t covered this route yet.' }</Text>); 
                 }
               }  
             }

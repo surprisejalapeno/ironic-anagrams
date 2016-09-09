@@ -101,9 +101,6 @@ export default class FriendsTab extends Component {
     });
   }
 
-
-
-
   render() {
     
     return (
