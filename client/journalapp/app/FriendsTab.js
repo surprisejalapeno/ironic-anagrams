@@ -7,12 +7,14 @@ import {
   TextInput,
   View,
   AsyncStorage,
-  Navigator
+  Navigator,
+  Dimensions
 } from 'react-native';
 
 import FriendList from './FriendList';
 import RequestList from './RequestList';
 import EntryList from './EntryList';
+
 
 export default class FriendsTab extends Component {
   constructor(props) {
@@ -101,9 +103,9 @@ export default class FriendsTab extends Component {
 
 
   render() {
-    
+
     return (
-      <View style={styles.background}>
+      <View style= { styles.container } >
       <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
       <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} />
       </View>
@@ -112,9 +114,13 @@ export default class FriendsTab extends Component {
 }
 
 const styles = StyleSheet.create({
-  background: {
-    alignItems: 'center'
-  },
+ container: {
+   width: Dimensions.get('window').width,
+   paddingLeft:6,
+   paddingRight:6,
+   paddingTop: 6,
+   paddingBottom:6
+ }
 });
 
 

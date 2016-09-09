@@ -13,14 +13,23 @@ var FriendList = (props) => {
   return (
 
     <View>
-    <Text>Your Friends</Text>
+    <Text style={ styles.subHeader } >Your Friends</Text>
       { props.friendList.map( (friend) => {
         return ( <Friend username={ friend.username } fullname={ friend.fullname } id={ friend.id } navigator={props.navigator}/> );
       }) }
 
     </View>
-
   )
 };
+
+const styles = StyleSheet.create({
+  subHeader: {
+    fontSize: 12,
+    fontWeight: '700',
+    color:"#424242",
+    marginLeft:12,
+    marginBottom:12
+  }
+});
 
 module.exports = FriendList;
