@@ -8,18 +8,26 @@ import {
   View
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
+
 var Request = (props) => {
   return (
     <View style={styles.container}>
-      <View style={ styles.row } >
-      <Text style={ styles.bodyText } onPress={()=> Alert.alert(
+      <View style={ styles.row } onPress={()=> Alert.alert(
           'Friend Request',
           'Do you wish to accept this friend request so they can view your private entries?',
           [
             {text: 'Yes', onPress: () => props.acceptFriend(props.requestId)},
             {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}
           ]
-        )}>Fullname:  { props.fullname }</Text>
+        )}
+      >
+      <Text style={ styles.bodyText }> Fullname:  { props.fullname }</Text>
+
+
+      <Icon style= {styles.arrow} name="navigate-next" ></Icon>
+
       </View>
     </View>
 
