@@ -11,6 +11,16 @@ import {
 
 import EntryList from './EntryList';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 26,
+    paddingRight: 12,
+    paddingLeft: 12,
+    backgroundColor: '#f5f6f6'
+  },
+});
+
 export default class FriendScene extends Component {
   constructor(props) {
     super(props);
@@ -53,9 +63,7 @@ export default class FriendScene extends Component {
 
   render() {
     return (
-      <View>
-        <Text>FriendPage</Text>
-        <Text>Friends EntryList</Text>
+      <View style = { styles.container }>
         <EntryList entries={ this.state.entries } />
       </View>
     )
