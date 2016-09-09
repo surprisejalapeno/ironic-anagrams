@@ -193,23 +193,15 @@ export default class Main extends Component {
             routeMapper={{
 
               LeftButton(route, navigator, index, navState) {
-                if (  route.title === 'FriendPage' ){
+                if (  route.title === 'FriendPage' || route.title === 'SearchFriends' || route.title === 'MessageScene'){
                   return (
                     <View style={ styles.topBarView }>
-                      <Text onPress={()=>{ navigator.pop() }} >
+                      <Text onPress={ ()=>{ navigator.pop() }} >
                         GO BACK
                       </Text>
                     </View>
                   )
-                } else if ( route.title === 'SearchFriends') {
-                  return (
-                    <View style={ styles.topBarView }>
-                      <Text onPress={ () => { navigator.pop() } }>
-                        GO BACK
-                      </Text>
-                    </View>
-                  )
-                }
+                } 
               },
 
               RightButton: (route, navigator, index, navState) => {
