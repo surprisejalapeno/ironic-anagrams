@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
   header: {
     marginTop: 0,
     marginLeft: 0, 
+    borderBottomWidth: 0.5,
+    borderColor: '#cccccc',
+    paddingBottom: 8
   }, 
   date: {
     fontSize: 11,
@@ -39,14 +42,20 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   }, 
   headerButton: {
-    marginTop: 5,
-    justifyContent: 'center',
+    marginTop: 7,
     width: Dimensions.get('window').width * .75,
-    alignSelf: 'center'
+  },
+  buttonText: {
+    color: 'blue',
+    fontSize: 18, 
+    marginTop: 7, 
+    marginLeft: 38, 
+    marginRight: 12
   },
   tabbarimage: {
     height: 20,
     width: 20,
+    marginTop: 9,
     marginLeft: 0, 
     position: 'absolute', 
   }
@@ -70,9 +79,9 @@ export default class EntriesTab extends Component {
         <View style={ styles.header }>
           <Text style={ styles.date }>{ DateFormatter(new Date(), "ddd, mmm d") }</Text>
           <Button style={ styles.headerButton } 
-                  onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) } 
-                  > 
-                  What did you do today?<Image style={styles.tabbarimage} source={require('./images/Pen_Icon.png')}/>
+                  onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) }>
+            <Text style={ styles.buttonText }>What did you do today?</Text>
+            <Image style={ styles.tabbarimage } source={require('./images/Pen_Icon.png')}/>
           </Button>
         </View>
         <EntryList entries = { this.props.entries } />

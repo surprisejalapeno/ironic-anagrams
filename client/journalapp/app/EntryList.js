@@ -25,6 +25,6 @@ module.exports = EntryList;
 var styles = StyleSheet.create({
   container: {
     position:'relative',
-    paddingTop:30
+    paddingTop:10
   }
 })
