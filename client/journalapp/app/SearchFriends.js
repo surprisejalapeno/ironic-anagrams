@@ -84,8 +84,6 @@ export default class SearchFriends extends Component {
         <SearchResultsList 
           results={this.state.results} 
           sendreq={this.sendFriendReq.bind(this)}
-          // TODO!!!!!
-          iconStyle={this.props.iconStyle} 
           navigator={this.props.navigator}/>
       </View>
     )
