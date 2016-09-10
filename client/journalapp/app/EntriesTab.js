@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     marginLeft: 0, 
     borderBottomWidth: 0.5,
     borderColor: '#cccccc',
-    paddingBottom: 8
+    paddingBottom: 16
   }, 
   date: {
     fontSize: 11,
@@ -42,20 +42,19 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   }, 
   headerButton: {
-    marginTop: 7,
     width: Dimensions.get('window').width * .75,
   },
   buttonText: {
-    color: 'blue',
+    color: '#0078f0',
     fontSize: 18, 
-    marginTop: 7, 
+    marginTop: 11, 
     marginLeft: 38, 
     marginRight: 12
   },
   tabbarimage: {
     height: 20,
     width: 20,
-    marginTop: 9,
+    marginTop: 12,
     marginLeft: 0, 
     position: 'absolute', 
   }
