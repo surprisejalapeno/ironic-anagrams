@@ -17,7 +17,12 @@ var RequestList = (props) => {
       <View>
       <Text style={ styles.subHeader } >Pending Friend Requests</Text>
         { props.requestList.map( (request) => {
-          return ( <Request fullname={ request.user.fullname } username={ request.user.username } requestId={request.id} acceptFriend={props.acceptFriend} navigator={props.navigator}/> );
+          return ( <Request fullname={ request.user.fullname } 
+                            username={ request.user.username } 
+                            requestId={ request.id } 
+                            acceptFriend={ props.acceptFriend } 
+                            rejectFriend={ props.rejectFriend }
+                            navigator={ props.navigator }/> );
         }) }
 
       </View>
