@@ -65,11 +65,46 @@ export default class EntriesTab extends Component {
   constructor(props) {
     super(props);
     this.props = props;
+
+    this.state = {
+      initialPosition: 'unknown',
+      lastPosition: 'unknown'
+    }
   }
 
   componentDidMount() {
     this.props.getEntries();
   }
+
+  //====== LOCATION LOGIC ======//
+
+  // Use this to keep track of the user's last position.
+  watchID: ?number = null;
+
+  // All logic here is grabbed from the testGeo.js file; integrates user's location 
+  // into the app. 
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var initialPosition = JSON.stringify(position);
+        this.setState({initialPosition});
+      },
+      (error) => alert(error),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      var lastPosition = JSON.stringify(position);
+      this.setState({lastPosition});
+    });
+  }
+
+  // These lines clear the location that's being watched when the component unmounts.  
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  //===== END LOCATION LOGIC =====//
+
 
   render() {
 
