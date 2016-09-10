@@ -72,9 +72,7 @@ export default class FriendsTab extends Component {
       .then( resp => { resp.json()
         .then( json => {
           console.log(json, "myjson");
-          this.setState({
-            pendingRequests: json
-          })
+          this.setState({ pendingRequests: json });
         })
         .catch((error) => {
           console.warn("fetch error on getrequest:", error)
@@ -84,7 +82,6 @@ export default class FriendsTab extends Component {
   }
 
   acceptFriendRequest(requestId){
-    console.log(requestId, typeof requestId, 'accepted!')
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       var message = {requestId:requestId};
       fetch('http://localhost:3000/api/friendreq', {
@@ -97,7 +94,7 @@ export default class FriendsTab extends Component {
       })
         .then((response) => {
           this.getFriendRequests();
-          console.log(response)
+          this.getFriends();
         })
           .catch((error) => {
             console.warn("fetch error:", error)
@@ -106,8 +103,6 @@ export default class FriendsTab extends Component {
   }
 
   rejectFriendRequest(requestId){
-    console.log("^%&^%^&^%^REJECTION", requestId);
-    console.log(requestId, typeof requestId, 'rejected!')
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       var req = {requestId: requestId};
       fetch('http://localhost:3000/api/friendreq', {
@@ -120,7 +115,6 @@ export default class FriendsTab extends Component {
       })
         .then((response) => {
           this.getFriendRequests();
-          console.log(response)
         })
           .catch((error) => {
             console.warn("fetch error:", error)
