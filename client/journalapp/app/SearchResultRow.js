@@ -16,12 +16,14 @@ var SearchResultRow = (props) => {
                                          props.navigator.pop();}}>
       <View style={styles.container}>
        <View style={ styles.row }>
-        <Text style={styles.bodyText}>
-        { props.fullname }
-        </Text>
-          <Text style={styles.subbodyText}>
-          { props.username }
-          </Text>
+         <View style={styles.names}>
+            <Text style={styles.bodyText}>
+               { props.fullname }
+            </Text>
+            <Text style={styles.subbodyText}>
+              { props.username }
+            </Text>
+         </View>
         <Image style={styles.image} source={require('./images/Add_Friend.png')}/>
         </View>
       </View>
@@ -39,20 +41,23 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
   },
   bodyText: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     position:'relative',
     fontSize: 14,
     fontWeight: '400',
     color:"#666666",
-    alignSelf:'center'
+    alignSelf:'flex-start'
   },
   subbodyText: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     position:'relative',
     fontSize: 11,
     fontWeight: '300',
     color:"#999999",
-    alignSelf:'center'
+    alignSelf:'flex-start'
+  },
+  names:{
+    flexDirection:'column'
   },
   row: {
     flexDirection: 'row',
