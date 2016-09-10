@@ -1,6 +1,7 @@
 // Adapted (only very slightly) from React Native's docs. This shows the user a view with his/her initial and current 
 // position. This will easily be integrated with the entries view -- though note: the use of the variable navigator here 
 // is going to be extremely confusing, when placed next to the Navigator syntax used for scene transitions. 
+// Referenced doc: https://facebook.github.io/react-native/docs/geolocation.html
 
 
 var React = require('react');

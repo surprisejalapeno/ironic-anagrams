@@ -1,4 +1,29 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
+ 
+// // This is all that's needed to show a mini testing view that shows user's location, grabbed from the device.
+//  import Geo from './testGeo';
+//  import {
+//   StyleSheet,
+//   Text,
+//   View,
+// } from 'react-native';
+
+// export default class testApp extends Component {
+//   constructor(){
+//     super();
+//   }
+
+//   render () {
+//     return (
+
+//       <View>
+//         <Geo/>
+//       </View>
+//     );
+//   }
+// }
+
+
 import {
     AsyncStorage
 } from 'react-native';
@@ -36,8 +61,6 @@ export default class Journalapp extends Component {
   }
 
   render() {
-
     return this.state.loggedIn ? (<Main signOut={ this.signOut.bind(this) }/>) : (<AuthParent updateStatus={this.updateStatus.bind(this)}/>)
-
   }
 }
