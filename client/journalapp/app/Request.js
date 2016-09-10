@@ -20,7 +20,7 @@ var Request = (props) => {
                 'Do you wish to accept this friend request so they can view your private entries?',
                 [
                   {text: 'Yes', onPress: () => props.acceptFriend(props.requestId)},
-                  {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}
+                  {text: 'No', onPress: () => props.rejectFriend(props.requestId)}
                 ]
               )}>
 

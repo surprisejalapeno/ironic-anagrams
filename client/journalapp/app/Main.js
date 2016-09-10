@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f6f6'
+    backgroundColor: '#f5f6f6', 
+
   },
   textinput: {
     height: 40,
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   tabbartext: {
    fontSize:10,
    fontWeight:'700',
-   marginBottom:6.5,
+   marginBottom:12,
    color:"#424242"
   },
   arrow: {

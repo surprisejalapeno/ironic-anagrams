@@ -22,9 +22,11 @@ var EntryList = ({entries}) => (
 
 module.exports = EntryList;
 
+// marginBottom allows space for the lower navbar
 var styles = StyleSheet.create({
   container: {
     position:'relative',
-    paddingTop:30
+    paddingTop:10, 
+    marginBottom: 37.5
   }
 })

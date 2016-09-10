@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   View,
+  ScrollView,
   AsyncStorage,
   Navigator,
   Dimensions
@@ -104,12 +105,44 @@ export default class FriendsTab extends Component {
     });
   }
 
+  rejectFriendRequest(requestId){
+    console.log("^%&^%^&^%^REJECTION", requestId);
+    console.log(requestId, typeof requestId, 'rejected!')
+    AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+      var req = {requestId: requestId};
+      fetch('http://localhost:3000/api/friendreq', {
+        method: 'DELETE',
+        headers: {
+         'Content-Type': 'application/json',
+         'x-access-token': token
+        },
+        body: JSON.stringify(req)
+      })
+        .then((response) => {
+          this.getFriendRequests();
+          console.log(response)
+        })
+          .catch((error) => {
+            console.warn("fetch error:", error)
+          });
+    });
+  }
+
   render() {
 
     return (
       <View style= { styles.container } >
-        <RequestList requestList={ this.state.pendingRequests } acceptFriend={this.acceptFriendRequest.bind(this)} navigator={this.props.navigator} />
-        <FriendList friendList={ this.state.friendList } navigator={this.props.navigator} updateFriend={ this.props.updateFriend }/>
+        <ScrollView>
+          <RequestList 
+            requestList={ this.state.pendingRequests } 
+            acceptFriend={ this.acceptFriendRequest.bind(this) } 
+            rejectFriend={ this.rejectFriendRequest.bind(this) }
+            navigator={ this.props.navigator } />
+          <FriendList 
+            friendList={ this.state.friendList } 
+            navigator={ this.props.navigator } 
+            updateFriend={ this.props.updateFriend }/>
+        </ScrollView>
       </View>
     )
   }
@@ -123,6 +156,7 @@ const styles = StyleSheet.create({
    paddingTop: 6,
    paddingBottom:6,
    marginTop:52,
+   marginBottom: 52,
    flex: 1,
    flexDirection:'column',
    justifyContent:'flex-start'
