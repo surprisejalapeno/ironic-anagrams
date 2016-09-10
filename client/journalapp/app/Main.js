@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f5f6f6', 
-
   },
   textinput: {
     height: 40,
@@ -109,7 +108,7 @@ export default class Main extends Component {
       page: 'EntriesTab',
       entries: ds.cloneWithRows([]),
       newEntry: '',
-      friendName: ''
+      friendName: '', 
     };
   }
 
@@ -171,9 +170,15 @@ export default class Main extends Component {
   }
 
   renderTab(navigator) {
-    if (this.state.page === "EntriesTab") return <EntriesTab navigator={navigator} getEntries={ this.getEntries.bind(this) } entries={ this.state.entries }/>;
-    if (this.state.page === "FriendsTab") return <FriendsTab navigator={navigator} updateFriend={ this.updateFriend.bind(this) }/>;
-    if (this.state.page === "SettingsTab") return <SettingsTab signOut={ this.props.signOut }/>;
+    if (this.state.page === "EntriesTab") return <EntriesTab 
+                                                    navigator={navigator} 
+                                                    getEntries={ this.getEntries.bind(this) } 
+                                                    entries={ this.state.entries }/>;
+    if (this.state.page === "FriendsTab") return <FriendsTab 
+                                                    navigator={navigator}
+                                                    updateFriend={ this.updateFriend.bind(this) }/>;
+    if (this.state.page === "SettingsTab") return <SettingsTab 
+                                                    signOut={ this.props.signOut }/>;
   }
 
   navigatorRenderScene(route, navigator) {
@@ -189,12 +194,20 @@ export default class Main extends Component {
             style={styles.tabbar}
             selectedStyle={{ opacity: 1 }} onSelect={el=>this.setState({page:el.props.name})}>
 
-            <View name="EntriesTab" style={styles.tabbarView}>
-              <Image style={styles.tabbarimage} source={require('./images/Home_Active.png')}/>
-              <Text style={styles.tabbartext}> Entries</Text>
+            <View 
+              name="EntriesTab" 
+              style={styles.tabbarView}>
+              <Image 
+                style={styles.tabbarimage} 
+                source={require('./images/Home_Active.png')}/>
+              <Text 
+                style={styles.tabbartext}> 
+                Entries</Text>
             </View>
 
-            <View name="FriendsTab" style={styles.tabbarView}>
+            <View 
+              name="FriendsTab" 
+              style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Friends_Active.png')}/>
               <Text style={styles.tabbartext}>Friends</Text>
             </View>
@@ -209,15 +222,21 @@ export default class Main extends Component {
       )
     } else if (route.title === 'FriendPage') {
       return (
-        <FriendScene friendId={ route.friendId } navigator={navigator} />
+        <FriendScene 
+          friendId={ route.friendId } 
+          navigator={navigator} />
       )
     } else if (route.title === 'MessageScene') {
       return (
-        <MessageScene navigator={navigator} getEntries={ this.getEntries.bind(this) } updateEntry = { this.updateEntry.bind(this) }/>
+        <MessageScene 
+          navigator={navigator} 
+          getEntries={ this.getEntries.bind(this) } 
+          updateEntry = { this.updateEntry.bind(this) }/>
       )
     } else if (route.title === 'SearchFriends') {
       return (
-        <SearchFriends navigator={ navigator } />
+        <SearchFriends 
+          navigator={ navigator } />
       )
     }
   }

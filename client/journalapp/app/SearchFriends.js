@@ -20,7 +20,7 @@ export default class SearchFriends extends Component {
     this.state = {
       text: '',
       results: [],
-
+      iconStyle: {}
     }
 
   };
@@ -51,7 +51,7 @@ export default class SearchFriends extends Component {
     });
   };
 
-  sendFriendReq(id) {
+  sendFriendReq(id, navigator) {
      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
        var message = {requestReceiver:id};
        fetch('http://localhost:3000/api/friendreq', {
@@ -63,19 +63,17 @@ export default class SearchFriends extends Component {
          body: JSON.stringify(message)
        })
          .then((response) => {
-           console.log(response)
+            //setTimeout( () => {
+              navigator.pop();
+            //}, 333);
          })
            .catch((error) => {
              console.warn("fetch error:", error)
            });
      });
-
   }
 
-
-
-
-  // Use lodash throttling (recastly sprint) to prevent blowing up the server
+  // Use lodash throttling (a la recastly sprint) to prevent blowing up the server
   render() {
     return (
       <View style={styles.container}>
@@ -83,7 +81,10 @@ export default class SearchFriends extends Component {
           style={styles.textinput}
           placeholder= 'Search for your friend by username'
           onChangeText={(text) => this.findMatching(text)} />
-        <SearchResultsList results={this.state.results} sendreq={this.sendFriendReq.bind(this)} navigator={this.props.navigator}/>
+        <SearchResultsList 
+          results={this.state.results} 
+          sendreq={this.sendFriendReq.bind(this)}
+          navigator={this.props.navigator}/>
       </View>
     )
   }
