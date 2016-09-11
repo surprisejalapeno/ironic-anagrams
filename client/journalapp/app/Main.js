@@ -109,8 +109,43 @@ export default class Main extends Component {
       entries: ds.cloneWithRows([]),
       newEntry: '',
       friendName: '', 
+      position: ''
     };
   }
+
+  //====== LOCATION LOGIC ======//
+
+  // Use this to keep track of the user's last position.
+  watchID: ?number = null;
+
+  // All logic here is grabbed from the testGeo.js file; integrates user's location 
+  // into the app. 
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var latLng = {lat: position.coords.longitude, lng: position.coords.latitude};
+        // GeoCoder.geocodePosition(latLng)
+        //   .then( (res) => {
+        //     console.log("****^&^^*^*^*  INITIAL DATA IS: ", res);
+        //     this.setState({position: res.locality + ', ' + res.adminArea});
+        //   })
+        //   .catch( err => console.log("ERROR: ", err) );
+
+        // The above GeoCoder needs Xcode configuration to work. For now, use dummy data.
+        // to establish connection with server. 
+        this.setState({position: 'San Francisco, CA'});
+      },
+      (error) => alert(error),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
+  // These lines clear the location that's being watched when the component unmounts.  
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  //===== END LOCATION LOGIC =====//
 
   getEntries(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
@@ -149,7 +184,7 @@ export default class Main extends Component {
 
   postEntry(navigator){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-      var message = {text: this.state.newEntry};
+      var newEntry = { text: this.state.newEntry, location: this.state.position };
 
       fetch('http://localhost:3000/api/entries', {
         method: 'POST',
@@ -157,7 +192,7 @@ export default class Main extends Component {
          'Content-Type': 'application/json',
          'x-access-token': token
         },
-        body: JSON.stringify(message)
+        body: JSON.stringify(newEntry)
       })
         .then((response) => {
           this.getEntries();
@@ -173,7 +208,8 @@ export default class Main extends Component {
     if (this.state.page === "EntriesTab") return <EntriesTab 
                                                     navigator={navigator} 
                                                     getEntries={ this.getEntries.bind(this) } 
-                                                    entries={ this.state.entries }/>;
+                                                    entries={ this.state.entries }
+                                                    position={ this.state.position }/>;
     if (this.state.page === "FriendsTab") return <FriendsTab 
                                                     navigator={navigator}
                                                     updateFriend={ this.updateFriend.bind(this) }/>;
