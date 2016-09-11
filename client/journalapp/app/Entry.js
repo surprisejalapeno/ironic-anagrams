@@ -57,7 +57,7 @@ var Entry = (props) => (
         { parseDate(props.createdAt) }
       </Text>
       <Text style={ styles.position }>
-        { props.position }
+        { props.location }
       </Text>
       <Text style={ styles.entryText }>
         { props.text }

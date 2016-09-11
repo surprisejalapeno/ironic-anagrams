@@ -84,7 +84,7 @@ export default class EntriesTab extends Component {
             <Image style={ styles.tabbarimage } source={require('./images/Pen_Icon.png')}/>
           </Button>
         </View>
-        <EntryList entries={ this.props.entries } position={ this.props.position }/>
+        <EntryList entries={ this.props.entries } />
       </View>
 
      )
