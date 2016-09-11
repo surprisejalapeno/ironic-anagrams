@@ -37,7 +37,9 @@ export default class Journalapp extends Component {
 
   render() {
 
-    return this.state.loggedIn ? (<Main signOut={ this.signOut.bind(this) }/>) : (<AuthParent updateStatus={this.updateStatus.bind(this)}/>)
+    return this.state.loggedIn ?
+    (<Main signOut={ this.signOut.bind(this) }/>) :
+    (<AuthParent updateStatus={this.updateStatus.bind(this)}/>)
 
   }
 }

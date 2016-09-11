@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f6f6', 
+    backgroundColor: '#f5f6f6',
   },
   textinput: {
     height: 40,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   topBar: {
     width: Dimensions.get('window').width,
     height: 60,
-    backgroundColor: 'white',
+    backgroundColor: '#f5f6f6',
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(175,175,175,.6)',
   },
@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5
   },
   tabbarView: {
-    opacity: 0.4
+    opacity: 0.45,
+    paddingTop:6
   },
   tabbarimage: {
     height: 30,
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
    fontSize:10,
    fontWeight:'700',
    marginBottom:12,
-   color:"#424242"
+   color:"#333333"
   },
   arrow: {
     alignSelf:'flex-end',
@@ -108,7 +109,7 @@ export default class Main extends Component {
       page: 'EntriesTab',
       entries: ds.cloneWithRows([]),
       newEntry: '',
-      friendName: '', 
+      friendName: '',
     };
   }
 
@@ -170,14 +171,14 @@ export default class Main extends Component {
   }
 
   renderTab(navigator) {
-    if (this.state.page === "EntriesTab") return <EntriesTab 
-                                                    navigator={navigator} 
-                                                    getEntries={ this.getEntries.bind(this) } 
+    if (this.state.page === "EntriesTab") return <EntriesTab
+                                                    navigator={navigator}
+                                                    getEntries={ this.getEntries.bind(this) }
                                                     entries={ this.state.entries }/>;
-    if (this.state.page === "FriendsTab") return <FriendsTab 
+    if (this.state.page === "FriendsTab") return <FriendsTab
                                                     navigator={navigator}
                                                     updateFriend={ this.updateFriend.bind(this) }/>;
-    if (this.state.page === "SettingsTab") return <SettingsTab 
+    if (this.state.page === "SettingsTab") return <SettingsTab
                                                     signOut={ this.props.signOut }/>;
   }
 
@@ -194,19 +195,19 @@ export default class Main extends Component {
             style={styles.tabbar}
             selectedStyle={{ opacity: 1 }} onSelect={el=>this.setState({page:el.props.name})}>
 
-            <View 
-              name="EntriesTab" 
+            <View
+              name="EntriesTab"
               style={styles.tabbarView}>
-              <Image 
-                style={styles.tabbarimage} 
+              <Image
+                style={styles.tabbarimage}
                 source={require('./images/Home_Active.png')}/>
-              <Text 
-                style={styles.tabbartext}> 
+              <Text
+                style={styles.tabbartext}>
                 Entries</Text>
             </View>
 
-            <View 
-              name="FriendsTab" 
+            <View
+              name="FriendsTab"
               style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Friends_Active.png')}/>
               <Text style={styles.tabbartext}>Friends</Text>
@@ -222,20 +223,20 @@ export default class Main extends Component {
       )
     } else if (route.title === 'FriendPage') {
       return (
-        <FriendScene 
-          friendId={ route.friendId } 
+        <FriendScene
+          friendId={ route.friendId }
           navigator={navigator} />
       )
     } else if (route.title === 'MessageScene') {
       return (
-        <MessageScene 
-          navigator={navigator} 
-          getEntries={ this.getEntries.bind(this) } 
+        <MessageScene
+          navigator={navigator}
+          getEntries={ this.getEntries.bind(this) }
           updateEntry = { this.updateEntry.bind(this) }/>
       )
     } else if (route.title === 'SearchFriends') {
       return (
-        <SearchFriends 
+        <SearchFriends
           navigator={ navigator } />
       )
     }

@@ -18,7 +18,7 @@ export default class AuthParent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 'LoginTab'
+      page: 'SignupTab'
     };
   }
 
@@ -39,9 +39,9 @@ export default class AuthParent extends React.Component {
           <Tabs
             selected={page}
             style={styles.tabbar}
-            selectedStyle={{color:'red'}} onSelect={el=>this.setState({page:el.props.name})}>
-              <Text name="LoginTab">Log In</Text>
-              <Text name="SignupTab">Sign Up</Text>
+            selectedStyle={{color:'#333333'}} onSelect={el=>this.setState({page:el.props.name})}>
+              <Text style={styles.tabbartext} name="SignupTab">Sign Up</Text>
+              <Text style={styles.tabbartext} name="LoginTab">Login</Text>
           </Tabs>
 
         </View>
@@ -55,18 +55,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor:'#f5f6f6',
   },
   tabbar: {
-    backgroundColor:'white',
+    backgroundColor:'#f5f6f6',
     height: 64,
-    borderTopColor: 'red',
-    borderTopWidth: 2
+    borderTopColor: '#878787',
+    borderTopWidth: .5
   },
-  textinput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
-
+  tabbartext: {
+   fontSize:15,
+   fontWeight:'600',
+   marginBottom:6,
+   color:"#878787"
   }
 });
