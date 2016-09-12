@@ -21,11 +21,11 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     paddingBottom: 2,
-  }, 
+  },
   rowHeader: {
     justifyContent: 'space-between',
     flex: 1,
-    flexDirection: 'row', 
+    flexDirection: 'row',
     marginLeft: 0,
   },
   date: {
@@ -42,11 +42,11 @@ var styles = StyleSheet.create({
   },
   rowBody: {
     marginLeft: 0,
+    marginTop: 12,
     flexDirection: 'column',
   },
   entryText: {
     justifyContent: 'flex-start',
-    marginTop: 20,
     fontSize: 15,
     fontWeight: '500',
     color:"#424242",
