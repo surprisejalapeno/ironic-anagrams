@@ -10,8 +10,6 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
-//           <Icon style={ [styles.footerContent, styles.footerArrow] } name="near-me"/>
-
 
 export default class SearchResultRow extends Component { 
 
@@ -26,7 +24,7 @@ export default class SearchResultRow extends Component {
 
   updateIcon(){
     this.setState({
-      //dynamicFriendIcon: () => { return './images/Add_Friend.png'}, 
+      dynamicFriendIcon: () => { return 'check-circle'}, 
       dynamicIconStyle: () => { return styles.greenIcon }
     })
   }
