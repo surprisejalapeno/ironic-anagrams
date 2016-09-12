@@ -19,7 +19,9 @@ export default class Journalapp extends Component {
   componentWillMount(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       var message = {text:this.state.text};
-      this.updateStatus(true);
+      if (token) {
+        this.updateStatus(true);
+      }
     });
   }
 
