@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   StyleSheet,
   Text,
@@ -145,7 +146,7 @@ export default class Main extends Component {
         // to establish connection with server. 
         this.setState({location: 'San Francisco, CA'});
       },
-      (error) => alert(error),
+      (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   }
