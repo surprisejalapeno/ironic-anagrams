@@ -74,6 +74,9 @@ export default class EntriesTab extends Component {
 
   render() {
 
+    // Note that the posting of a new message to the database actually occurs in Main.js. When the user 
+    // wants to enter a new message, the navigator scene here tells the Navigator in Main.js to render
+    // the post new entry view. The onPress method of the Button here sets this off. 
     return (
       <View style={ styles.container }>
         <View style={ styles.header }>

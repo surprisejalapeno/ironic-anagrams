@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
   }
 });
 
+// Note that this is a scene, not a tab view. In this case, that means the user clicked on "What did you do today?" in 
+// EntriesTab.js. EntriesTab then tells Main.js to navigate to this scene. 
 export default class FriendScene extends Component {
   constructor(props) {
     super(props);
@@ -75,6 +77,8 @@ export default class FriendScene extends Component {
     this.props.updateEntry('');
   }
 
+  // This shrinks the container to accommodate the keypad, when the user clicks the text input
+  // to begin his/her entry. The footer is thus effectively pulled up the view. 
   moveUpForKeyboardShow(){
     setTimeout( ()=> {
       this.setState(
@@ -84,6 +88,8 @@ export default class FriendScene extends Component {
     
   }
 
+  // When the user clicks out of the text input but remains on this view, this resets the container
+  // back to its original size, effectively pushing the footer back down. 
   moveDownForKeyboardHide(){
     this.setState(
       { dynamicHeight : () => { return {height: Dimensions.get('window').height - 49 - 70}} }
