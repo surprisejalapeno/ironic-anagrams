@@ -38,6 +38,7 @@ export default class SearchFriends extends Component {
       })
       .then( resp => { resp.json()
         .then( json => {
+          console.log("*>*>*>*>&*>%^> FIRING");
           const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
           this.setState({
             text: query,
@@ -63,9 +64,7 @@ export default class SearchFriends extends Component {
          body: JSON.stringify(message)
        })
          .then((response) => {
-            //setTimeout( () => {
-              navigator.pop();
-            //}, 333);
+            //navigator.pop();
          })
            .catch((error) => {
              console.warn("fetch error:", error)
@@ -73,7 +72,7 @@ export default class SearchFriends extends Component {
      });
   }
 
-  // Use lodash throttling (a la recastly sprint) to prevent blowing up the server
+  // TODO (?) Use lodash throttling (a la recastly sprint) to prevent blowing up the server
   render() {
     return (
       <View style={styles.container}>

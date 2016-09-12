@@ -9,25 +9,52 @@ import {
   Image
 } from 'react-native';
 
-var SearchResultRow = (props) => {
+import Icon from 'react-native-vector-icons/MaterialIcons'
+//           <Icon style={ [styles.footerContent, styles.footerArrow] } name="near-me"/>
 
-  return (
-    <TouchableHighlight onPress={ () => props.sendreq(props.id, props.navigator) }>
-      <View style={styles.container}>
-       <View style={ styles.row }>
-         <View style={styles.names}>
-            <Text style={styles.bodyText}>
-               { props.fullname }
-            </Text>
-            <Text style={styles.subbodyText}>
-              { props.username }
-            </Text>
-         </View>
-        <Image style={styles.image} source={require('./images/Add_Friend.png')}/>
+
+export default class SearchResultRow extends Component { 
+
+  constructor(props){
+    super(props);
+    this.props = props;
+    this.state = {
+      dynamicFriendIcon: () => { return 'person-add'}, 
+      dynamicIconStyle: () => { return styles.defaultIcon }
+    }
+  }
+
+  updateIcon(){
+    this.setState({
+      //dynamicFriendIcon: () => { return './images/Add_Friend.png'}, 
+      dynamicIconStyle: () => { return styles.greenIcon }
+    })
+  }
+
+  sendReq() {
+    this.updateIcon();
+    this.props.sendreq(this.props.id, this.props.navigator)
+  }
+
+  render() {
+    return (
+      <TouchableHighlight onPress={ this.sendReq.bind(this) }>
+        <View style={styles.container}>
+         <View style={ styles.row }>
+           <View style={ styles.names }>
+              <Text style={styles.bodyText}>
+                 { this.props.fullname }
+              </Text>
+              <Text style={styles.subbodyText}>
+                { this.props.username }
+              </Text>
+           </View>
+          <Icon style={ this.state.dynamicIconStyle() } name={ this.state.dynamicFriendIcon() }/>
+          </View>
         </View>
-      </View>
-    </TouchableHighlight>
-  )
+      </TouchableHighlight>
+    )
+  }
 };
 
 
@@ -68,11 +95,12 @@ var styles = StyleSheet.create({
     borderColor: '#cccccc',
     justifyContent:'space-between'
   },
-  image: {
-    height: 24,
-    width:24,
-    alignSelf:'flex-end',
-    flexDirection: 'column',
-    color:"#c7c7cc",
+  defaultIcon: {
+    fontSize: 24,
+    color:"#c7c7cc"
+  }, 
+  greenIcon: {
+    fontSize: 24,
+    color:"green"
   }
 });
