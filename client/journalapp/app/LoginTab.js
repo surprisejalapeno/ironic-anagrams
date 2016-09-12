@@ -15,10 +15,6 @@ import {
 import Form from 'react-native-form'
 import Button from 'react-native-button';
 
-var inputStyle = {
-  height: 20, borderColor: 'gray', borderWidth: .5
-};
-
 export default class LoginTab extends Component {
 
   constructor(props) {
