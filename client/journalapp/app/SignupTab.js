@@ -4,19 +4,18 @@ import {
   TextInput,
   Text,
   View,
-  Switch, 
-  Slider, 
-  Picker, 
+  Switch,
+  Slider,
+  Picker,
   PickerIOS,
-  AsyncStorage
+  AsyncStorage,
+  Dimensions
 } from 'react-native';
 
 import Form from 'react-native-form'
 import Button from 'react-native-button';
 
-var inputStyle = {
-  height: 20, borderColor: 'gray', borderWidth: .5
-};
+
 
 export default class SignupTab extends Component {
 
@@ -30,7 +29,7 @@ export default class SignupTab extends Component {
     };
   }
 
-  submitUser() {  
+  submitUser() {
     var newUser = JSON.stringify({
       username: this.state.username,
       fullname: this.state.fullname,
@@ -47,8 +46,8 @@ export default class SignupTab extends Component {
     .then( resp => { resp.json()
       .then( json => {
         try {
-          AsyncStorage.setItem('@MySuperStore:token', json.token, (err) => { 
-            if ( err ){ console.warn(err); } 
+          AsyncStorage.setItem('@MySuperStore:token', json.token, (err) => {
+            if ( err ){ console.warn(err); }
             this.props.updateStatus(true);
           });
         } catch (error) {
@@ -77,36 +76,43 @@ export default class SignupTab extends Component {
   render() {
 
     return (
-      <View>
-        <Form ref={'signupForm'}>
-          <Text> Enter your full name: </Text>
-          <TextInput 
+      <View style={styles.viewContainer} >
+        <Form style={styles.formContainer} ref={'signupForm'}>
+
+          <View style={styles.fieldContainer}>
+          <Text style={styles.subHeader} > Full name </Text>
+          <TextInput
             onChangeText= { (text) => this.updateFullname({text}) }
-            style= { inputStyle } 
-            name="fullname" 
-            type="TextInput"/> 
+            style= { styles.container }
+            name="fullname"
+            type="TextInput"/>
+          </View>
 
-          <Text> Enter a username: </Text>
-          <TextInput 
+          <View style={styles.fieldContainer}>
+          <Text style={styles.subHeader} > Email </Text>
+          <TextInput
             onChangeText= { (text) => this.updateUsername({text}) }
-            style= { inputStyle } 
-            name="username" 
-            type="TextInput"/> 
+            style= { styles.container }
+            name="username"
+            type="TextInput"/>
+          </View>
 
-          <Text> Enter a password: </Text>
-          <TextInput 
+          <View style={styles.fieldContainer}>
+          <Text style={styles.subHeader}> Password </Text>
+          <TextInput
             secureTextEntry={ true }
             onChangeText= { (text) => this.updatePassword({text}) }
-            style= { inputStyle } 
-            name="password" 
-            type="TextInput"/> 
-
+            style= { styles.container }
+            name="password"
+            type="TextInput"/>
+          </View>
         </Form>
+
         <Button
-          style={{fontSize: 20, color: 'green'}}
+          style={styles.button}
           styleDisabled={{color: 'red'}}
           onPress={ () => this.submitUser() }>
-          Submit
+          Sign Up
         </Button>
       </View>
 
@@ -114,3 +120,53 @@ export default class SignupTab extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  viewContainer: {
+    width: Dimensions.get('window').width*.7,
+    paddingTop: 6,
+    paddingBottom:6,
+    marginTop:52,
+    marginBottom: 52,
+    flex: 1,
+    flexDirection:'column',
+    justifyContent:'flex-start'
+  },
+  fieldContainer:{
+    marginBottom:16
+  },
+  subHeader: {
+    fontSize: 12,
+    fontWeight: '700',
+    color:"#424242",
+    marginLeft:12,
+    marginBottom:4.5
+  },
+  container: {
+    backgroundColor: '#fafafa',
+    flex: 1,
+    flexDirection: 'column',
+    paddingLeft:6,
+    marginLeft:12,
+    marginRight:12,
+    borderWidth:1,
+    height:32,
+    borderColor: '#cccccc',
+    justifyContent:'space-between',
+    fontSize: 14,
+    fontWeight: '400',
+    borderRadius:3
+  },
+  button:{
+    height:40,
+    backgroundColor:"#424242",
+    marginLeft:12,
+    marginRight:12,
+    marginTop:12,
+    paddingTop:8.5,
+    color:'white',
+    fontSize: 16,
+    fontWeight: '400',
+    borderRadius:3
+  }
+});
