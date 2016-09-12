@@ -16,7 +16,6 @@ import FriendList from './FriendList';
 import RequestList from './RequestList';
 import EntryList from '../Entry_Flow/EntryList';
 
-
 export default class FriendsTab extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +33,8 @@ export default class FriendsTab extends Component {
     this.getFriendRequests();
   }
 
+  // This will happen when the component is mounted, and will show a list (via FriendsList) of 
+  // friends (via Friend).
   getFriends(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       fetch('http://localhost:3000/api/friends', {
@@ -60,6 +61,8 @@ export default class FriendsTab extends Component {
     });
   }
 
+  // This will happen when the component is mounted, and will show a list (via RequestList) of 
+  // requests (via Request).
   getFriendRequests(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       fetch('http://localhost:3000/api/friendreq', {
@@ -81,6 +84,7 @@ export default class FriendsTab extends Component {
     });
   }
 
+  // Accepting a friend request occurs on the Request view.
   acceptFriendRequest(requestId){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       var message = {requestId:requestId};
@@ -102,6 +106,7 @@ export default class FriendsTab extends Component {
     });
   }
 
+  // Rejecting a friend request occurs on the Request view.  
   rejectFriendRequest(requestId){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       var req = {requestId: requestId};

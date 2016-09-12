@@ -25,8 +25,9 @@ export default class SearchFriends extends Component {
 
   };
 
+  // This method fires whenever a user enters input in the input text in this component
+  // (see the jsx template below).
   findMatching(query) {
-    console.log(query, typeof query, 'this ma query');
     var url = 'http://localhost:3000/api/users' + "/?username=" + query;
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       fetch(url , {
@@ -51,6 +52,7 @@ export default class SearchFriends extends Component {
     });
   };
 
+  // Sending the friend request occurs when the user clicks the friend icon in the SearchResultRow view. 
   sendFriendReq(id, navigator) {
      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
        var message = {requestReceiver:id};
