@@ -34,9 +34,14 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
+    fontSize: 22
   },
   faintText: {
     color: 'rgba(100,100,100,.6)'
+  },
+  largerText: {
+    marginTop: -2,
+    fontSize: 19
   },
   topBar: {
     width: Dimensions.get('window').width,
@@ -89,6 +94,11 @@ const styles = StyleSheet.create({
     height: 53,
     fontSize: 17,
     fontWeight: '600'
+  },
+  titleCounter: {
+    marginTop: 9, 
+    fontSize: 19, 
+    fontWeight: '400'
   },
   rightArrow: {
     marginTop: 10,
@@ -320,7 +330,7 @@ export default class Main extends Component {
                 if ( route.title === 'MessageScene' ) {
                   return (
                     <View style={ [styles.topBarView, styles.rightArrow] }>
-                      <Text style={ styles.faintText } onPress={(() => { this.postEntry(navigator); }).bind(this) } >
+                      <Text style={ [styles.faintText, styles.largerText] } onPress={(() => { this.postEntry(navigator); }).bind(this) } >
                         Publish
                       </Text>
                     </View>
@@ -331,7 +341,7 @@ export default class Main extends Component {
               Title: (route, navigator, index, navState) =>{
                 // Title views for the entries routes.
                 if ( route.title === 'MessageScene') {
-                  return (<Text style = { [styles.faintText, styles.title] }>{ 100 - this.state.newEntry.length }</Text>)
+                  return (<Text style = { [styles.faintText, styles.titleCounter] }>{ 100 - this.state.newEntry.length }</Text>)
                 } else if ( this.state.page === 'EntriesTab' ) {
                   return (<Text style={ styles.title }>{ 'My Story' }</Text>);
                 }

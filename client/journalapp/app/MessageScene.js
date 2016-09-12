@@ -76,9 +76,12 @@ export default class FriendScene extends Component {
   }
 
   moveUpForKeyboardShow(){
-    this.setState(
-      { dynamicHeight : () => { return { height: Dimensions.get('window').height * .45 }} }
-    );
+    setTimeout( ()=> {
+      this.setState(
+        { dynamicHeight : () => { return { height: Dimensions.get('window').height * .45 }} }
+      );
+    }, 200);
+    
   }
 
   moveDownForKeyboardHide(){
