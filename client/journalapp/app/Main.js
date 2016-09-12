@@ -138,13 +138,12 @@ export default class Main extends Component {
         var latLng = {lat: position.coords.longitude, lng: position.coords.latitude};
         // GeoCoder.geocodePosition(latLng)
         //   .then( (res) => {
-        //     console.log("****^&^^*^*^*  INITIAL DATA IS: ", res);
         //     this.setState({location: res.locality + ', ' + res.adminArea});
         //   })
         //   .catch( err => console.log("ERROR: ", err) );
 
         // The above GeoCoder needs Xcode configuration to work. For now, use dummy data.
-        // to establish connection with server.
+        // to establish connection with server. 
         this.setState({location: 'San Francisco, CA'});
       },
       (error) => alert(JSON.stringify(error)),
@@ -159,6 +158,10 @@ export default class Main extends Component {
 
   //===== END LOCATION LOGIC =====//
 
+  // This method is passed down to EntriesTab.js, where it is used to get the list of all entries for 
+  // either the signed in user, when he/she is at his/her profile, or all the entries for a selected friend, 
+  // if the user has navigated over to that friend's profile. Note that it will be called on the entry tab's 
+  // mount and also after the user makes a new entry (so it'll autorefresh the entry list).
   getEntries(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       fetch('http://localhost:3000/api/entries', {
@@ -194,6 +197,8 @@ export default class Main extends Component {
     })
   }
 
+  // Enter a new entry for the user. This method is here rather than in EntryTab.js so that the user may use the 
+  // publish onPress method.
   postEntry(navigator){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       var newEntry = { text: this.state.newEntry, location: this.state.location };
