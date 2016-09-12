@@ -99,6 +99,6 @@ var styles = StyleSheet.create({
   }, 
   greenIcon: {
     fontSize: 24,
-    color:"green"
+    color:"#0ed978"
   }
 });
