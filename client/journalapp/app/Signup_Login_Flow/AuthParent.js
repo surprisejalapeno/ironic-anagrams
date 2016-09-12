@@ -4,7 +4,8 @@ import {
   Navigator,
   Text,
   View,
-  AsyncStorage
+  AsyncStorage,
+  Dimensions
 } from 'react-native';
 
 import Tabs from 'react-native-tabs';
@@ -63,14 +64,14 @@ const styles = StyleSheet.create({
   },
   tabbar: {
     backgroundColor:'#f5f6f6',
-    height: 64,
+    height: 54,
     borderTopColor: '#878787',
-    borderTopWidth: .5
+    borderTopWidth: 1,
   },
   tabbartext: {
    fontSize:15,
    fontWeight:'600',
-   marginBottom:6,
+   marginBottom:5,
    color:"#878787"
   }
 });

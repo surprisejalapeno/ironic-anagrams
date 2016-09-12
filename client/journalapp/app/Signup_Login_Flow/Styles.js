@@ -53,7 +53,21 @@ const styles = StyleSheet.create({
     color:'white',
     fontSize: 16,
     fontWeight: '400',
-    borderRadius:3
+    borderRadius:3,
+    opacity:1,
+  },
+  disabledbutton:{
+    height:40,
+    backgroundColor:"#424242",
+    marginLeft:12,
+    marginRight:12,
+    marginTop:12,
+    paddingTop:8.5,
+    color:'white',
+    fontSize: 16,
+    fontWeight: '400',
+    borderRadius:3,
+    opacity:0.5,
   },
   splashContainer:{
     flex:1,
@@ -61,24 +75,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img:{
-    // flex:1,
-    height:225,
-    width:225,
-    marginTop:16,
-    marginBottom:16
-    // flexDirection:'column',
-    // justifyContent:'center'
+    height:250,
+    width:250,
+    marginTop:48,
+    alignSelf:'center'
   },
   title: {
-    marginTop: 32,
+    marginTop: 18,
     height: 32,
     fontSize: 21,
-    fontWeight: '600',
+    fontWeight: '700',
+    alignSelf:'center'
   },
   subtitle: {
-    height: 100,
-    fontSize: 17,
+    height: 150,
+    fontSize: 14,
     fontWeight: '400',
+    lineHeight: 22,
+    alignSelf:'center',
+    textAlign: 'center',
+    marginTop:6,
+    paddingLeft:3,
+    paddingRight:3
   }
 });
 
