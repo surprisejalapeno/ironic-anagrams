@@ -6,7 +6,7 @@ import {
   Dimensions
 } from 'react-native';
 
-
+//This provides the styling for the login/sign up tabs and the splashscreen
 const styles = StyleSheet.create({
   viewContainer: {
     width: Dimensions.get('window').width*.7,
@@ -54,6 +54,31 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     borderRadius:3
+  },
+  splashContainer:{
+    flex:1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  img:{
+    // flex:1,
+    height:225,
+    width:225,
+    marginTop:16,
+    marginBottom:16
+    // flexDirection:'column',
+    // justifyContent:'center'
+  },
+  title: {
+    marginTop: 32,
+    height: 32,
+    fontSize: 21,
+    fontWeight: '600',
+  },
+  subtitle: {
+    height: 100,
+    fontSize: 17,
+    fontWeight: '400',
   }
 });
 

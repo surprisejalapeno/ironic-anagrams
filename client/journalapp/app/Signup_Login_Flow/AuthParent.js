@@ -9,22 +9,25 @@ import {
 
 import Tabs from 'react-native-tabs';
 
-import SignupTab from './Signup_Login_Flow/SignupTab';
-import LoginTab from './Signup_Login_Flow/LoginTab';
+import SignupTab from './SignupTab';
+import LoginTab from './LoginTab';
 
+var SplashScreen = require('./SplashScreen')
 
 export default class AuthParent extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      page: 'SignupTab'
+      page: 'Splash'
     };
   }
 
   renderTab() {
+    if (this.state.page === "Splash") return <SplashScreen/>;
     if (this.state.page === "SignupTab") return <SignupTab updateStatus={this.props.updateStatus} />;
     if (this.state.page === "LoginTab") return <LoginTab updateStatus={this.props.updateStatus} />;
+
   }
 
   render() {

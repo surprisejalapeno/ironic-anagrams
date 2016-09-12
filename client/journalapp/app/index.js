@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 
-import AuthParent from './AuthParent';
+import AuthParent from './Signup_Login_Flow/AuthParent';
 import Main from './Main';
 
 export default class Journalapp extends Component {

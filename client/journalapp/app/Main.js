@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   titleCounter: {
-    marginTop: 9, 
-    fontSize: 19, 
+    marginTop: 9,
+    fontSize: 17,
     fontWeight: '400'
   },
   rightArrow: {
@@ -120,7 +120,7 @@ export default class Main extends Component {
       page: 'EntriesTab',
       entries: ds.cloneWithRows([]),
       newEntry: '',
-      friendName: '', 
+      friendName: '',
       location: ''
     };
   }
@@ -130,8 +130,8 @@ export default class Main extends Component {
   // Use this to keep track of the user's last location.
   watchID: ?number = null;
 
-  // All logic here is grabbed from the testGeo.js file; integrates user's location 
-  // into the app. 
+  // All logic here is grabbed from the testGeo.js file; integrates user's location
+  // into the app.
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -144,7 +144,7 @@ export default class Main extends Component {
         //   .catch( err => console.log("ERROR: ", err) );
 
         // The above GeoCoder needs Xcode configuration to work. For now, use dummy data.
-        // to establish connection with server. 
+        // to establish connection with server.
         this.setState({location: 'San Francisco, CA'});
       },
       (error) => alert(JSON.stringify(error)),
@@ -152,7 +152,7 @@ export default class Main extends Component {
     );
   }
 
-  // These lines clear the location that's being watched when the component unmounts.  
+  // These lines clear the location that's being watched when the component unmounts.
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
@@ -275,9 +275,9 @@ export default class Main extends Component {
       )
     } else if (route.title === 'MessageScene') {
       return (
-        <MessageScene 
-          navigator={navigator} 
-          getEntries={ this.getEntries.bind(this) } 
+        <MessageScene
+          navigator={navigator}
+          getEntries={ this.getEntries.bind(this) }
           updateEntry = { this.updateEntry.bind(this) }
           location={ this.state.location }/>
       )
