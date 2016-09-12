@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   StyleSheet,
   Text,
@@ -34,9 +35,14 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
+    fontSize: 22
   },
   faintText: {
     color: 'rgba(100,100,100,.6)'
+  },
+  largerText: {
+    marginTop: -2,
+    fontSize: 19
   },
   topBar: {
     width: Dimensions.get('window').width,
@@ -91,6 +97,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '600'
   },
+  titleCounter: {
+    marginTop: 9, 
+    fontSize: 19, 
+    fontWeight: '400'
+  },
   rightArrow: {
     marginTop: 10,
     marginRight: 10,
@@ -109,9 +120,44 @@ export default class Main extends Component {
       page: 'EntriesTab',
       entries: ds.cloneWithRows([]),
       newEntry: '',
-      friendName: '',
+      friendName: '', 
+      location: ''
     };
   }
+
+  //====== LOCATION LOGIC ======//
+
+  // Use this to keep track of the user's last location.
+  watchID: ?number = null;
+
+  // All logic here is grabbed from the testGeo.js file; integrates user's location 
+  // into the app. 
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var latLng = {lat: position.coords.longitude, lng: position.coords.latitude};
+        // GeoCoder.geocodePosition(latLng)
+        //   .then( (res) => {
+        //     console.log("****^&^^*^*^*  INITIAL DATA IS: ", res);
+        //     this.setState({location: res.locality + ', ' + res.adminArea});
+        //   })
+        //   .catch( err => console.log("ERROR: ", err) );
+
+        // The above GeoCoder needs Xcode configuration to work. For now, use dummy data.
+        // to establish connection with server. 
+        this.setState({location: 'San Francisco, CA'});
+      },
+      (error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
+  // These lines clear the location that's being watched when the component unmounts.  
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  //===== END LOCATION LOGIC =====//
 
   getEntries(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
@@ -150,7 +196,7 @@ export default class Main extends Component {
 
   postEntry(navigator){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-      var message = {text: this.state.newEntry};
+      var newEntry = { text: this.state.newEntry, location: this.state.location };
 
       fetch('http://localhost:3000/api/entries', {
         method: 'POST',
@@ -158,7 +204,7 @@ export default class Main extends Component {
          'Content-Type': 'application/json',
          'x-access-token': token
         },
-        body: JSON.stringify(message)
+        body: JSON.stringify(newEntry)
       })
         .then((response) => {
           this.getEntries();
@@ -229,10 +275,11 @@ export default class Main extends Component {
       )
     } else if (route.title === 'MessageScene') {
       return (
-        <MessageScene
-          navigator={navigator}
-          getEntries={ this.getEntries.bind(this) }
-          updateEntry = { this.updateEntry.bind(this) }/>
+        <MessageScene 
+          navigator={navigator} 
+          getEntries={ this.getEntries.bind(this) } 
+          updateEntry = { this.updateEntry.bind(this) }
+          location={ this.state.location }/>
       )
     } else if (route.title === 'SearchFriends') {
       return (
@@ -285,7 +332,7 @@ export default class Main extends Component {
                 if ( route.title === 'MessageScene' ) {
                   return (
                     <View style={ [styles.topBarView, styles.rightArrow] }>
-                      <Text style={ styles.faintText } onPress={(() => { this.postEntry(navigator); }).bind(this) } >
+                      <Text style={ [styles.faintText, styles.largerText] } onPress={(() => { this.postEntry(navigator); }).bind(this) } >
                         Publish
                       </Text>
                     </View>
@@ -296,7 +343,7 @@ export default class Main extends Component {
               Title: (route, navigator, index, navState) =>{
                 // Title views for the entries routes.
                 if ( route.title === 'MessageScene') {
-                  return (<Text style = { [styles.faintText, styles.title] }>{ 100 - this.state.newEntry.length }</Text>)
+                  return (<Text style = { [styles.faintText, styles.titleCounter] }>{ 100 - this.state.newEntry.length }</Text>)
                 } else if ( this.state.page === 'EntriesTab' ) {
                   return (<Text style={ styles.title }>{ 'My Story' }</Text>);
                 }

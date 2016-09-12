@@ -25,6 +25,14 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     fontWeight: '500'
   },
+  location: {
+    position: 'absolute',
+    marginLeft: 220,
+    fontSize: 11,
+    color: '#999999',
+    flexDirection: 'row',
+    fontWeight: '500'
+  },
   entryText: {
     flex: 1,
     position: 'relative',
@@ -46,6 +54,9 @@ var Entry = (props) => (
     <View style={ styles.row }>
       <Text style={ styles.date }>
         { parseDate(props.createdAt) }
+      </Text>
+      <Text style={ styles.location }>
+        { props.location }
       </Text>
       <Text style={ styles.entryText }>
         { props.text }

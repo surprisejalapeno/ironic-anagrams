@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
     AsyncStorage
 } from 'react-native';
@@ -36,10 +37,8 @@ export default class Journalapp extends Component {
   }
 
   render() {
-
     return this.state.loggedIn ?
     (<Main signOut={ this.signOut.bind(this) }/>) :
     (<AuthParent updateStatus={this.updateStatus.bind(this)}/>)
-
   }
 }

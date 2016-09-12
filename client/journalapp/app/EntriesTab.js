@@ -15,8 +15,9 @@ import {
 
 import DateFormatter from 'dateformat';
 import Button from 'react-native-button';
-
 import EntryList from './EntryList';
+
+import GeoCoder from 'react-native-geocoder';
 
 
 // For the stypes, the height: Dimensions.get('window').height - 60 and marginTop: 60 accommodates the navbar's height, as set in Main.js. 
@@ -83,7 +84,7 @@ export default class EntriesTab extends Component {
             <Image style={ styles.tabbarimage } source={require('./images/Pen_Icon.png')}/>
           </Button>
         </View>
-        <EntryList entries = { this.props.entries } />
+        <EntryList entries={ this.props.entries } />
       </View>
 
      )
