@@ -38,7 +38,6 @@ export default class SearchFriends extends Component {
       })
       .then( resp => { resp.json()
         .then( json => {
-          console.log("*>*>*>*>&*>%^> FIRING");
           const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
           this.setState({
             text: query,
@@ -64,6 +63,8 @@ export default class SearchFriends extends Component {
          body: JSON.stringify(message)
        })
          .then((response) => {
+            // Uncomment this pop if you want the screen to pan back to the friends list after a request is sent. 
+            // Set a timer around it to make the transition delayed.
             //navigator.pop();
          })
            .catch((error) => {
