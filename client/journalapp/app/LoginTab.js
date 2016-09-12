@@ -4,11 +4,12 @@ import {
   TextInput,
   Text,
   View,
-  Switch, 
-  Slider, 
-  Picker, 
+  Switch,
+  Slider,
+  Picker,
   PickerIOS,
-  AsyncStorage
+  AsyncStorage,
+  Dimensions
 } from 'react-native';
 
 import Form from 'react-native-form'
@@ -46,7 +47,7 @@ export default class LoginTab extends Component {
     .then( resp => { resp.json()
       .then( json => {
         try {
-          AsyncStorage.multiSet([['@MySuperStore:token', json.token], ['@MySuperStore:username', this.state.username]], (err) => { 
+          AsyncStorage.multiSet([['@MySuperStore:token', json.token], ['@MySuperStore:username', this.state.username]], (err) => {
             if ( err ){ console.warn(err); }
             this.props.updateStatus(true);
           });
@@ -68,36 +69,42 @@ export default class LoginTab extends Component {
     this.setState(newProp);
   }
 
-  getState(){ 
+  getState(){
     return this.state;
   }
 
   render() {
 
     return (
-      <View>
-        <Form>
-          <Text> Enter your username: </Text>
-          <TextInput 
-            onChangeText= { (text) => this.updateUsername( {text} ) }
-            style= { inputStyle } 
-            name="username" 
-            type="TextInput"/> 
+      <View style={styles.viewContainer}>
+        <Form style={styles.formContainer}>
 
-          <Text> Enter your password: </Text>
-          <TextInput 
-            secureTextEntry={ true }
-            onChangeText= { (text) => this.updatePassword( {text} ) }
-            style= { inputStyle } 
-            name="password" 
-            type="TextInput"/> 
+          <View style={styles.fieldContainer}>
+            <Text style={styles.subHeader} > Email </Text>
+            <TextInput
+              onChangeText= { (text) => this.updateUsername( {text} ) }
+              style= { styles.container }
+              name="username"
+              type="TextInput"/>
+          </View>
+
+          <View style={styles.fieldContainer}>
+            <Text style={styles.subHeader} > Password </Text>
+            <TextInput
+              secureTextEntry={ true }
+              onChangeText= { (text) => this.updatePassword( {text} ) }
+              style= { styles.container }
+              name="password"
+              type="TextInput"/>
+          </View>
+
         </Form>
 
         <Button
-          style={{fontSize: 20, color: 'green'}}
+          style={styles.button}
           styleDisabled={{color: 'red'}}
           onPress={ () => this.submitUser() }>
-          Submit
+          Log In
         </Button>
 
       </View>
@@ -105,3 +112,55 @@ export default class LoginTab extends Component {
 
   }
 }
+
+
+const styles = StyleSheet.create({
+  viewContainer: {
+    width: Dimensions.get('window').width*.7,
+    paddingTop: 6,
+    paddingBottom:6,
+    marginTop:52,
+    marginBottom: 52,
+    flex: 1,
+    flexDirection:'column',
+    justifyContent:'flex-start'
+  },
+  fieldContainer:{
+    marginBottom:16
+  },
+  subHeader: {
+    fontSize: 12,
+    fontWeight: '700',
+    color:"#424242",
+    marginLeft:12,
+    marginBottom:4.5
+  },
+  container: {
+    backgroundColor: '#fafafa',
+    flex: 1,
+    flexDirection: 'column',
+    paddingLeft:6,
+    marginLeft:12,
+    marginRight:12,
+    borderWidth:1,
+    height:32,
+    borderColor: '#cccccc',
+    justifyContent:'space-between',
+    fontSize: 14,
+    fontWeight: '400',
+    borderRadius:3
+  },
+  button:{
+    height:40,
+    backgroundColor:"#424242",
+    marginLeft:12,
+    marginRight:12,
+    marginTop:12,
+    paddingTop:8.5,
+    color:'white',
+    fontSize: 16,
+    fontWeight: '400',
+    borderRadius:3
+  }
+});
+
