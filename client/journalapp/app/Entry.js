@@ -14,53 +14,61 @@ var styles = StyleSheet.create({
   container: {
     borderBottomWidth: 0.5,
     borderColor: '#cccccc',
-    paddingTop:12,
+    paddingTop: 12,
     paddingBottom:12
   },
+  row: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingBottom: 2,
+  }, 
+  rowHeader: {
+    justifyContent: 'space-between',
+    flex: 1,
+    flexDirection: 'row', 
+    marginLeft: 0,
+  },
   date: {
-    position: 'absolute',
-    alignSelf: 'center',
+    justifyContent: 'flex-start',
     fontSize: 11,
     color: '#999999',
-    flexDirection: 'row',
     fontWeight: '500'
   },
   location: {
-    position: 'absolute',
-    marginLeft: 220,
+    justifyContent: 'flex-end',
     fontSize: 11,
     color: '#999999',
-    flexDirection: 'row',
     fontWeight: '500'
   },
-  entryText: {
-    flex: 1,
-    position: 'relative',
-    marginTop: 20,
+  rowBody: {
+    marginLeft: 0,
     flexDirection: 'column',
+  },
+  entryText: {
+    justifyContent: 'flex-start',
+    marginTop: 20,
     fontSize: 15,
     fontWeight: '500',
     color:"#424242",
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingBottom: 2,
-  }
 });
 
 var Entry = (props) => (
   <View style={ styles.container }>
     <View style={ styles.row }>
-      <Text style={ styles.date }>
-        { parseDate(props.createdAt) }
-      </Text>
-      <Text style={ styles.location }>
-        { props.location }
-      </Text>
-      <Text style={ styles.entryText }>
-        { props.text }
-      </Text>
+      <View style={ styles.rowHeader }>
+        <Text style={ styles.date }>
+          { parseDate(props.createdAt) }
+        </Text>
+        <Text style={ styles.location }>
+          { props.location }
+        </Text>
+      </View>
+      <View style={ styles.rowBody }>
+        <Text style={ styles.entryText }>
+          { props.text }
+        </Text>
+      </View>
     </View>
   </View>
 );
