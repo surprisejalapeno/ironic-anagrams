@@ -14,7 +14,7 @@ import {
 
 import Form from 'react-native-form'
 import Button from 'react-native-button';
-var styles = require('./Signup_Login_Flow/Styles')
+var styles = require('./Styles')
 
 
 export default class SignupTab extends Component {

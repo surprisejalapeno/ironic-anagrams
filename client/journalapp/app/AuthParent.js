@@ -9,8 +9,8 @@ import {
 
 import Tabs from 'react-native-tabs';
 
-import SignupTab from './SignupTab';
-import LoginTab from './LoginTab';
+import SignupTab from './Signup_Login_Flow/SignupTab';
+import LoginTab from './Signup_Login_Flow/LoginTab';
 
 
 export default class AuthParent extends React.Component {
