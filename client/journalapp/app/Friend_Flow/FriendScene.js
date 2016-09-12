@@ -9,7 +9,7 @@ import {
   ListView
 } from 'react-native';
 
-import EntryList from './EntryList';
+import EntryList from '../Entry_Flow/EntryList';
 
 const styles = StyleSheet.create({
   container: {

@@ -63,9 +63,9 @@ export default class SearchFriends extends Component {
          body: JSON.stringify(message)
        })
          .then((response) => {
-            //setTimeout( () => {
-              navigator.pop();
-            //}, 333);
+            // Uncomment this pop if you want the screen to pan back to the friends list after a request is sent. 
+            // Set a timer around it to make the transition delayed.
+            //navigator.pop();
          })
            .catch((error) => {
              console.warn("fetch error:", error)
@@ -73,7 +73,7 @@ export default class SearchFriends extends Component {
      });
   }
 
-  // Use lodash throttling (a la recastly sprint) to prevent blowing up the server
+  // TODO (?) Use lodash throttling (a la recastly sprint) to prevent blowing up the server
   render() {
     return (
       <View style={styles.container}>

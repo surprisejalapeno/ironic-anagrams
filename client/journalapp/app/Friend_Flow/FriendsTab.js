@@ -14,7 +14,7 @@ import {
 
 import FriendList from './FriendList';
 import RequestList from './RequestList';
-import EntryList from './EntryList';
+import EntryList from '../Entry_Flow/EntryList';
 
 
 export default class FriendsTab extends Component {

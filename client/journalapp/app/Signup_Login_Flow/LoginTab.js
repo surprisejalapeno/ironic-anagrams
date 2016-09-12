@@ -9,7 +9,8 @@ import {
   Picker,
   PickerIOS,
   AsyncStorage,
-  Dimensions
+  Dimensions, 
+  Alert
 } from 'react-native';
 
 import Form from 'react-native-form'
@@ -45,16 +46,22 @@ export default class LoginTab extends Component {
       })
       .then( resp => { resp.json()
         .then( json => {
-          try {
-            AsyncStorage.multiSet([['@MySuperStore:token', json.token], ['@MySuperStore:username', this.state.username]], (err) => {
-              if ( err ){ console.warn(err); }
-              this.props.updateStatus(true);
-            });
-          } catch (error) {
-            console.log('AsyncStorage error: ' + error.message);
+          // Make sure there is no error in the login information. Detects if the username is not in the DB, or if the password is wrong.
+          if ( json.error ) {
+            Alert.alert(json.error);
+          } else {
+            try {
+              AsyncStorage.multiSet([['@MySuperStore:token', json.token], ['@MySuperStore:username', this.state.username]], (err) => {
+                if ( err ){ console.warn(err); }
+                this.props.updateStatus(true);
+              });
+            } catch (error) {
+              console.log('AsyncStorage error: ' + error.message);
+            }
           }
         });
-      });
+      })
+      .catch((error) => { console.log("ERROR: ", error)});
     }
   }
 

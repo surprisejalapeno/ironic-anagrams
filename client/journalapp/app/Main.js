@@ -14,12 +14,12 @@ import {
 } from 'react-native';
 
 import Tabs from 'react-native-tabs';
-import EntriesTab from './EntriesTab';
-import FriendsTab from './FriendsTab';
+import EntriesTab from './Entry_Flow/EntriesTab';
+import FriendsTab from './Friend_Flow/FriendsTab';
 import SettingsTab from './SettingsTab';
-import FriendScene from './FriendScene';
-import MessageScene from './MessageScene';
-import SearchFriends from './SearchFriends';
+import FriendScene from './Friend_Flow/FriendScene';
+import MessageScene from './Entry_Flow/MessageScene';
+import SearchFriends from './Friend_Flow/SearchFriends';
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
