@@ -36,26 +36,35 @@ export default class SignupTab extends Component {
       password: this.state.password
     });
 
-    fetch('http://localhost:3000/api/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: newUser
-    })
-    .then( resp => { resp.json()
-      .then( json => {
-        try {
-          AsyncStorage.setItem('@MySuperStore:token', json.token, (err) => {
-            if ( err ){ console.warn(err); }
-            this.props.updateStatus(true);
-          });
-        } catch (error) {
-          console.log('AsyncStorage error: ' + error.message);
-        }
+    if (this.formStatus()){
+      fetch('http://localhost:3000/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: newUser
+      })
+      .then( resp => { resp.json()
+        .then( json => {
+          try {
+            AsyncStorage.setItem('@MySuperStore:token', json.token, (err) => {
+              if ( err ){ console.warn(err); }
+              this.props.updateStatus(true);
+            });
+          } catch (error) {
+            console.log('AsyncStorage error: ' + error.message);
+          }
+        });
       });
-    });
+    }
+  }
 
+  formStatus() {
+    if (this.state.username.length !==0 && this.state.fullname.length !==0 && this.state.password.length !==0 ){
+     return true
+    } else {
+    return false
+    }
   }
 
   updateFullname(val) {
@@ -109,8 +118,7 @@ export default class SignupTab extends Component {
         </Form>
 
         <Button
-          style={styles.button}
-          styleDisabled={{color: 'red'}}
+          style={ this.formStatus() ? styles.button : styles.disabledbutton}
           onPress={ () => this.submitUser() }>
           Sign Up
         </Button>
