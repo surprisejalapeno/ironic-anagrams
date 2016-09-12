@@ -81,7 +81,7 @@ export default class EntriesTab extends Component {
           <Button style={ styles.headerButton } 
                   onPress={ () => this.props.navigator.push({ title: 'MessageScene'}) }>
             <Text style={ styles.buttonText }>What did you do today?</Text>
-            <Image style={ styles.tabbarimage } source={require('./images/Pen_Icon.png')}/>
+            <Image style={ styles.tabbarimage } source={require('./../images/Pen_Icon.png')}/>
           </Button>
         </View>
         <EntryList entries={ this.props.entries } />
