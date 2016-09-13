@@ -9,17 +9,8 @@ import {
   ListView
 } from 'react-native';
 
-import EntryList from '../Entry_Flow/EntryList';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 26,
-    paddingRight: 12,
-    paddingLeft: 12,
-    backgroundColor: '#f5f6f6'
-  },
-});
+import EntryList from '../Entry_Components/EntryList';
+import styles from '../styles/FriendSceneStyles';
 
 export default class FriendScene extends Component {
   constructor(props) {

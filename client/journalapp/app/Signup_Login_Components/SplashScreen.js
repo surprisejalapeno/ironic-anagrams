@@ -12,7 +12,7 @@ import {
   Image,
 } from 'react-native';
 
-var styles = require('./Styles')
+import styles from '../styles/AuthGeneralStyles';
 
 var Splash = () => {
 
