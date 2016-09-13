@@ -9,6 +9,7 @@ import {
 
 // VB: Refactored require to use import, for consistency
 import Entry from './Entry';
+import styles from '../styles/EntryListStyles';
 
 var EntryList = ({entries}) => (
     <ListView style ={styles.container}
@@ -18,14 +19,5 @@ var EntryList = ({entries}) => (
         }/>
 )
 
-
 module.exports = EntryList;
 
-// marginBottom allows space for the lower navbar
-var styles = StyleSheet.create({
-  container: {
-    position:'relative',
-    paddingTop:10, 
-    marginBottom: 37.5
-  }
-})

@@ -15,8 +15,8 @@ import {
 
 import Form from 'react-native-form'
 import Button from 'react-native-button';
-var styles = require('./Styles')
 
+import styles from '../styles/AuthGeneralStyles';
 
 export default class LoginTab extends Component {
 

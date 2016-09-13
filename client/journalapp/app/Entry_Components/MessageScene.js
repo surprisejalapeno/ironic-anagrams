@@ -11,56 +11,9 @@ import {
 } from 'react-native';
 
 import Button from 'react-native-button';
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const styles = StyleSheet.create({
-  container: {
-    borderColor: 'gray',
-    width: Dimensions.get('window').width * 1,
-    paddingTop: 70, 
-    marginLeft: 0,
-    backgroundColor: '#f5f6f6', 
-  },
-  bodyWidth: {
-    marginLeft: Dimensions.get('window').width * .05,
-    marginRight: Dimensions.get('window').width * .05,
-  },
-  fadedText: {
-    fontSize: 16,
-    color: 'gray',
-    fontWeight: 'bold',
-  }, 
-  footer: {
-    position: 'absolute', 
-    marginLeft: 0,
-    marginTop: 0, 
-    flex: 1, 
-    flexDirection: 'row', 
-    backgroundColor: 'white',
-    width: Dimensions.get('window').width,
-    borderTopWidth: 1, 
-    borderTopColor: 'rgba(175,175,175,.6)',
-    height: 49, 
-    paddingTop: 6, 
-
-  },
-  footerContent: {
-    color:"#c7c7cc", 
-    fontSize: 24
-  },
-  footerPadlock: {
-    marginLeft: Dimensions.get('window').width * .08,
-    width: Dimensions.get('window').width * .1,
-  }, 
-  footerArrow: {
-    marginLeft: Dimensions.get('window').width * .3,
-  },
-  footerText: {
-    fontSize: 16,
-    marginLeft: Dimensions.get('window').width * .02,
-    width: Dimensions.get('window').width * .46,
-  }
-});
+import styles from '../styles/MessageSceneStyles';
 
 // Note that this is a scene, not a tab view. In this case, that means the user clicked on "What did you do today?" in 
 // EntriesTab.js. EntriesTab then tells Main.js to navigate to this scene. 
@@ -84,8 +37,7 @@ export default class FriendScene extends Component {
       this.setState(
         { dynamicHeight : () => { return { height: Dimensions.get('window').height * .45 }} }
       );
-    }, 200);
-    
+    }, 200); 
   }
 
   // When the user clicks out of the text input but remains on this view, this resets the container

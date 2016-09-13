@@ -14,7 +14,9 @@ import {
 
 import FriendList from './FriendList';
 import RequestList from './RequestList';
-import EntryList from '../Entry_Flow/EntryList';
+import EntryList from '../Entry_Components/EntryList';
+
+import styles from '../styles/FriendsTabStyles';
 
 export default class FriendsTab extends Component {
   constructor(props) {
@@ -147,21 +149,7 @@ export default class FriendsTab extends Component {
   }
 }
 
-const styles = StyleSheet.create({
- container: {
-   width: Dimensions.get('window').width,
-   paddingLeft:6,
-   paddingRight:6,
-   paddingTop: 6,
-   paddingBottom:6,
-   marginTop:52,
-   marginBottom: 52,
-   flex: 1,
-   flexDirection:'column',
-   justifyContent:'flex-start'
- }
 
-});
 
 
 

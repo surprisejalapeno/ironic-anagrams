@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import Friend from './Friend';
+import styles from '../styles/FriendListStyles';
 
 var FriendList = (props) => {
 
@@ -31,15 +32,5 @@ var FriendList = (props) => {
   )
 };
 
-const styles = StyleSheet.create({
-  subHeader: {
-    fontSize: 12,
-    fontWeight: '700',
-    color:"#424242",
-    marginLeft:12,
-    marginBottom:12,
-    marginTop:17
-  }
-});
 
 module.exports = FriendList;

@@ -13,6 +13,8 @@ import Tabs from 'react-native-tabs';
 import SignupTab from './SignupTab';
 import LoginTab from './LoginTab';
 
+import styles from '../styles/AuthParentStyles';
+
 var SplashScreen = require('./SplashScreen')
 
 export default class AuthParent extends React.Component {
@@ -54,24 +56,3 @@ export default class AuthParent extends React.Component {
 
 
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor:'#f5f6f6',
-  },
-  tabbar: {
-    backgroundColor:'#f5f6f6',
-    height: 54,
-    borderTopColor: '#878787',
-    borderTopWidth: 1,
-  },
-  tabbartext: {
-   fontSize:15,
-   fontWeight:'600',
-   marginBottom:5,
-   color:"#878787"
-  }
-});
