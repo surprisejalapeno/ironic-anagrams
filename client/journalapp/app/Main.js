@@ -16,6 +16,7 @@ import {
 import Tabs from 'react-native-tabs';
 import EntriesTab from './Entry_Components/EntriesTab';
 import FriendsTab from './Friend_Components/FriendsTab';
+import StatsTab from './Stats_Components/StatsTab.js';
 import SettingsTab from './Settings_Components/SettingsTab';
 import FriendScene from './Friend_Components/FriendScene';
 import MessageScene from './Entry_Components/MessageScene';
@@ -209,6 +210,28 @@ export default class Main extends Component {
     this.setState({newEntryPhotos: null });
   }
 
+  getStats() {
+    AsyncStorage.getItem('ENTERKEYHERE', (err, token) => {
+      fetch('http://104.236.158.41:3000/api/stats', 
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token
+        }
+      })
+      .then( resp => resp.json()
+        .then( json => {
+          //handle JSON response from server
+          console.log('handling json response from server in getStats');
+        })
+      )
+      .catch( (error) => {
+        //handle error here
+        console.log('handling error in getStats');
+      });
+    });
+  }
 
   // According to the state's current page, return a certain tab view. Tab views are all stateful, and will 
   // potentially contain logic to interact with the server, or navigate to scenes using the Navigator. This 
@@ -223,6 +246,9 @@ export default class Main extends Component {
                                                     updateFriend={ this.updateFriend.bind(this) }/>;
     if (this.state.page === "SettingsTab") return <SettingsTab
                                                     signOut={ this.props.signOut }/>;
+    if (this.state.page === "StatsTab") return <StatsTab
+                                                    navigator={navigator}
+                                                    getStats={ this.getStats.bind(this) }/>;
   }
 
   // This logic applies routing according the title of the current route. It will be activated whenever the 
@@ -259,6 +285,11 @@ export default class Main extends Component {
               style={styles.tabbarView}>
               <Image style={styles.tabbarimage} source={require('./images/Friends_Active.png')}/>
               <Text style={styles.tabbartext}>Friends</Text>
+            </View>
+
+            <View name="StatsTab" style={styles.tabbarView}>
+              <Image style={styles.tabbarimage} source={require('./images/Stats_Active.png')}/>
+              <Text style={styles.tabbartext}>Statistics</Text>
             </View>
 
             <View name="SettingsTab" style={styles.tabbarView}>
@@ -374,6 +405,11 @@ export default class Main extends Component {
                 // Title views for the settings route.
                 if (this.state.page === 'SettingsTab') {
                   return (<Text style={ styles.title }>{ 'Settings' }</Text>);
+                }
+
+                // Title view for the stats route.
+                if (this.state.page === 'StatsTab') {
+                  return (<Text style={ styles.title }>{ 'Statistics' }</Text>);
                 }
 
                 else {
