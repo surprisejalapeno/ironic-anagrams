@@ -104,6 +104,10 @@ export default class Main extends Component {
   // either the signed in user, when he/she is at his/her profile, or all the entries for a selected friend, 
   // if the user has navigated over to that friend's profile. Note that it will be called on the entry tab's 
   // mount and also after the user makes a new entry (so it'll autorefresh the entry list).
+
+// NEW FOR HANDLING PHOTOS
+// Process: 1. Get entries from db 2. For each entry, get photo & add to entry 3. Create ListView and setState
+
   getEntries(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       // Make sure photos are retrieved w/ api/entries endpoint
@@ -179,6 +183,7 @@ export default class Main extends Component {
             console.warn("fetch error:", error)
           });
     });
+
 
 ////////////////// IN PROGRESS FOR POSTING ENTRY WITH PHOTO /////////////
     // if (this.state.newEntryPhotos === null) {
