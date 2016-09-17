@@ -133,7 +133,7 @@ export default class Main extends Component {
     });
   }
 
-  
+
   handlePhotoPress() {
     ImagePicker.showImagePicker(this.imagePickerOptions, (response) => {
       console.log('inside showImagePicker');
@@ -335,6 +335,7 @@ export default class Main extends Component {
 
   // Enter a new entry for the user. This method is here rather than in EntryTab.js so that the user may use the 
   // publish onPress method.
+
   getStats() {
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       fetch('http://104.236.158.41:3000/api/stats', 
