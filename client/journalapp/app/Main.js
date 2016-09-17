@@ -112,7 +112,7 @@ export default class Main extends Component {
   getEntries(){
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       // Make sure photos are retrieved w/ api/entries endpoint
-      fetch('http://localhost:8080/api/entries', {
+      fetch('http://104.236.158.41:3000/api/entries', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
