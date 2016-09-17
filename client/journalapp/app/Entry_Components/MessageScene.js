@@ -65,7 +65,7 @@ export default class MessageScene extends Component {
         onChangeText={ (text) => this.props.updateEntry(text) }
         onFocus= { this.moveUpForKeyboardShow.bind(this) }
         onBlur= { this.moveDownForKeyboardHide.bind(this) }/>
-        <Image source={this.props.newEntryPhotos} style={{width: 300, height: 300}} />
+        <Image source={this.props.newEntryPhotos} style={{width: 300, height: 300, marginLeft: 35, marginBottom: 4}} />
         <View style={ [styles.bodyWidth, styles.footer] }>
           <PhotoButton handlePhotoPress={this.props.handlePhotoPress} />
           <Icon style={ [styles.footerContent, styles.footerPadlock] } name="lock-open"/>

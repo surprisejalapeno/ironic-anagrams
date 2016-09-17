@@ -44,3 +44,5 @@ export default class Journalapp extends Component {
     (<AuthParent updateStatus={this.updateStatus.bind(this)}/>)
   }
 }
+
+console.disableYellowBox = true;

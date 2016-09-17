@@ -28,6 +28,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles/MainStyles';
 
 var ImagePicker = require('react-native-image-picker');
+var Promise = require('bluebird');
 
 export default class Main extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ export default class Main extends Component {
     this.imagePickerOptions = imagePicker.options;
 
     this.clearPhotoState = this.clearPhotoState.bind(this);
+    // this.getEntryPhoto = this.getEntryPhoto.bind(this);
   }
 
   // This is used inside MessageScene, where the user's input updates the Main component's newEntry state.
@@ -126,60 +128,6 @@ export default class Main extends Component {
     });
   }
 
-  // Enter a new entry for the user. This method is here rather than in EntryTab.js so that the user may use the 
-  // publish onPress method.
-  postEntry(navigator){
-    console.log('this.state.entryPhotos:', this.state.newEntryPhotos);
-
-    if (this.state.newEntryPhotos === null) {
-      console.log('inside postEntry, no photo');
-      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-        // Add 'photos: this.state.newEntryPhotos'
-        var newEntry = { text: this.state.newEntry, location: this.state.location };
-
-        fetch('http://104.236.158.41:3000/api/entries', {
-          method: 'POST',
-          headers: {
-           'Content-Type': 'application/json',
-           'x-access-token': token
-          },
-          body: JSON.stringify(newEntry)
-        })
-          .then((response) => {
-            this.getEntries();
-            navigator.pop();
-          })
-            .catch((error) => {
-              console.warn("fetch error:", error)
-            });
-      });
-
-    } else {
-      console.log('inside postEntry, with photo');
-      AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
-        // Add 'photos: this.state.newEntryPhotos'
-        var newEntry = { text: this.state.newEntry, location: this.state.location, photo: this.state.newEntryPhotos }; 
-
-        fetch('http://104.236.158.41:3000/api/entriesWithPhoto', {
-          method: 'POST',
-          headers: {
-           'Content-Type': 'application/json',
-           'x-access-token': token
-          },
-          body: JSON.stringify(newEntry)
-        })
-          .then((response) => {
-            this.getEntries();
-            navigator.pop();
-            this.clearPhotoState();
-          })
-            .catch((error) => {
-              console.warn("fetch error:", error)
-            });
-      });
-    }
-  }
-
   handlePhotoPress() {
     ImagePicker.showImagePicker(this.imagePickerOptions, (response) => {
       console.log('inside showImagePicker');
@@ -209,6 +157,177 @@ export default class Main extends Component {
     this.setState({newEntryPhotos: null });
   }
 
+  postEntry(navigator){
+    console.log('this.state.entryPhotos:', this.state.newEntryPhotos);
+    AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+      // Add 'photos: this.state.newEntryPhotos'
+      var newEntry = { text: this.state.newEntry, location: this.state.location };
+
+      fetch('http://104.236.158.41:3000/api/entries', {
+        method: 'POST',
+        headers: {
+         'Content-Type': 'application/json',
+         'x-access-token': token
+        },
+        body: JSON.stringify(newEntry)
+      })
+        .then((response) => {
+          this.getEntries();
+          navigator.pop();
+        })
+          .catch((error) => {
+            console.warn("fetch error:", error)
+          });
+    });
+
+////////////////// IN PROGRESS FOR POSTING ENTRY WITH PHOTO /////////////
+    // if (this.state.newEntryPhotos === null) {
+    //   console.log('inside postEntry, no photo');
+    //   AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+    //     // Add 'photos: this.state.newEntryPhotos'
+    //     var newEntry = { text: this.state.newEntry, location: this.state.location };
+
+    //     fetch('http://104.236.158.41:3000/api/entries', {
+    //       method: 'POST',
+    //       headers: {
+    //        'Content-Type': 'application/json',
+    //        'x-access-token': token
+    //       },
+    //       body: JSON.stringify(newEntry)
+    //     })
+    //       .then((response) => {
+    //         this.getEntries();
+    //         navigator.pop();
+    //       })
+    //         .catch((error) => {
+    //           console.warn("fetch error:", error)
+    //         });
+    //   });
+
+    // } else {
+    //   console.log('inside postEntry, with photo');
+    //   AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+    //     // Add 'photos: this.state.newEntryPhotos'
+    //     var newEntry = { text: this.state.newEntry, location: this.state.location, photo: this.state.newEntryPhotos };
+
+    //     fetch('http://104.236.158.41:3000/api/entriesWithPhoto', {
+    //       method: 'POST',
+    //       headers: {
+    //        'Content-Type': 'application/json',
+    //        'x-access-token': token
+    //       },
+    //       body: JSON.stringify(newEntry)
+    //     })
+    //       .then((response) => {
+    //         this.getEntries();
+    //         navigator.pop();
+    //         this.clearPhotoState();
+    //       })
+    //         .catch((error) => {
+    //           console.warn("fetch error:", error)
+    //         });
+    //   });
+    // }
+  }
+
+ ////////////////// GET PHOTO IN PROGRESS ///////////////////
+
+// NEW FOR HANDLING PHOTOS
+// Process: 1. Get entries from db 2. For each entry, get photo & add to entry 3. Create ListView and setState
+
+  // getEntries(){
+  //   AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+  //     fetch('http://104.236.158.41:3000/api/entries', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'x-access-token': token
+  //       }
+  //     })
+  //     .then( resp => { return resp.json()})
+  //     .then( json => {
+  //       console.log('json:', json);
+  //       // get photo and add it to the json
+  //       // return this.getEntryPhotoPromise()(json)
+  //       var entriesWithPhotos = json.map((entry) => {
+  //         return this.getEntryPhotoPromise()(entry); // breaks inside this function
+  //       });
+  //       console.log('about to return promise of promised entries');
+  //       return Promise.all(entriesWithPhotos);
+  //     })
+  //     .then( res => {
+  //       console.log('got to ListView then statement!!!');
+  //       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+  //       this.setState({
+  //         entries: ds.cloneWithRows(res)
+  //       });
+  //       console.log('state entries:', this.state.entries);
+  //     })
+  //       .catch((error) => {
+  //         console.warn("fetch error on getEntries:", error)
+  //       });
+  //   });
+  // }
+
+  // getEntryPhotoPromise() {
+  //   console.log('inside getEntryPhotoPromise');
+
+  //   // map for each entry
+  //   var getEntryPhotoPromise = Promise.promisify(this.getEntryPhoto);
+  //   return getEntryPhotoPromise;
+  // }
+
+  // // For each entry, getEntryPhoto
+  // getEntryPhoto(entry) {
+  //   console.log('inside getEntryPhoto');
+  //   // if (entry.photoId === undefined) {
+  //   //   entry['photo'] = null;
+  //   // } else {
+  //   //   fetch('http://104.236.158.41:3000/api/entriesWithPhoto', {
+  //   //     method: 'GET',
+  //   //     headers: {
+  //   //       'Content-Type': 'application/json',
+  //   //       'x-access-token': token
+  //   //     },
+  //   //     data: {q: entry.photoId}
+  //   //   })
+  //   //   .then( res => {
+  //   //     console.log('response from getEntryPhoto fetch:', res);
+  //   //     entry['photo'] = res;
+  //   //     return res;
+  //   //   })
+  //   //   .catch((err) => {
+  //   //     console.warn('fetch error on getEntryPhoto:', err);
+  //   //   })
+  //   // }
+
+
+  //   // FOR TESTING ONLY
+  //   AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
+  //     console.log('inside AsyncStorage');
+  //     fetch('http://104.236.158.41:3000/api/entriesWithPhoto', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'x-access-token': token
+  //       }
+  //     })
+  //     .then( res => {
+  //       console.log('inside AsycStorage after getting response back from server');
+  //       var photoStr = res._bodyInit;
+  //       var photo = JSON.parse(photoStr);
+  //       entry['photo'] = photo;
+  //       console.log('about to return entry with photo');
+  //       return entry;
+  //     })
+  //     .catch((err) => {
+  //       console.warn('fetch error on getEntryPhoto:', err);
+  //     })
+  //   });
+  // }
+
+  // Enter a new entry for the user. This method is here rather than in EntryTab.js so that the user may use the 
+  // publish onPress method.
   getStats() {
     AsyncStorage.getItem('@MySuperStore:token', (err, token) => {
       fetch('http://104.236.158.41:3000/api/stats', 
