@@ -105,6 +105,7 @@ export default class Main extends Component {
   // if the user has navigated over to that friend's profile. Note that it will be called on the entry tab's 
   // mount and also after the user makes a new entry (so it'll autorefresh the entry list).
 
+
 // NEW FOR HANDLING PHOTOS
 // Process: 1. Get entries from db 2. For each entry, get photo & add to entry 3. Create ListView and setState
 
@@ -131,6 +132,7 @@ export default class Main extends Component {
       });
     });
   }
+
 
   handlePhotoPress() {
     ImagePicker.showImagePicker(this.imagePickerOptions, (response) => {
